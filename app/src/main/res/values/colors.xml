@@ -3,4 +3,14 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="white">#ffffff</color>
+    <color name="background_color">#EDEDED</color>
+    <color name="text_color">#767676</color>
+
+    <color name="avatar_background">#D1D1D1</color>
+    <color name="press_color">#D1D1D1</color>
+
+    <color name="black">#000000</color>
+    <color name="shallow_black">#555555</color>
 </resources>
