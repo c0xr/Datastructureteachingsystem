@@ -13,4 +13,6 @@
 
     <color name="black">#000000</color>
     <color name="shallow_black">#555555</color>
+
+    <color name="bottom_icon_tint">#D81B60</color>
 </resources>

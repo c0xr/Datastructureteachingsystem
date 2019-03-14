@@ -1,22 +1,31 @@
 package com.csti.datastructureteachingsystem;
 
-import android.support.constraint.ConstraintLayout;
+import android.content.res.ColorStateList;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends AppCompatActivity {
+    private final static String SAVED_PRESENT_F="present";
+    private final static String TAG_F1="f1";
+    private final static String TAG_F2="f2";
+    private final static String TAG_F3="f3";
 
-    private FragmentManager fm;
-    private Fragment f3;
+    private FragmentManager mFm;
+    private Fragment mF1;
+    private Fragment mF2;
+    private Fragment mF3;
+    private int mPresentF;
+    private ImageView mHomeIcon;
+    private ImageView mPostIcon;
+    private ImageView mMyInfoIcon;
+    private TextView mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,23 +33,138 @@ public class MainActivity extends AppCompatActivity {
         Bmob.initialize(this, "1e80a4c2a3073b26958660004ae63da5");
         setContentView(R.layout.activity_main);
 
-        fm=getSupportFragmentManager();
-        f3=InfoManagementFragment.newInstance();
-        fm.beginTransaction()
-                .add(R.id.container,f3)
-                .hide(f3)
-                .commit();
+        mHomeIcon =findViewById(R.id.home_icon);
+        mPostIcon =findViewById(R.id.post_icon);
+        mMyInfoIcon =findViewById(R.id.my_info_icon);
+        mTitle=findViewById(R.id.title);
 
-        final Button b=findViewById(R.id.button);
-        b.setOnClickListener(new View.OnClickListener() {
+        if(savedInstanceState!=null){
+            mPresentF=savedInstanceState.getInt(SAVED_PRESENT_F);
+        }
+
+        mFm =getSupportFragmentManager();
+        mF2=mFm.findFragmentByTag(TAG_F2);
+        mF3=mFm.findFragmentByTag(TAG_F3);
+
+        if(mF2==null) {
+            mF1=new Fragment();
+            mF2 = PostListFragment.newInstance();
+            mF3 = InfoManagementFragment.newInstance();
+            mFm.beginTransaction()
+                    .add(R.id.container, mF2,TAG_F2)
+                    .add(R.id.container, mF3,TAG_F3)
+                    .hide(mF3)
+                    .commit();
+            mPresentF=2;
+        }
+
+        setTint();
+        setTitle();
+
+        findViewById(R.id.home).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConstraintLayout c=(ConstraintLayout) b.getParent();
-                c.removeView(b);
-                fm.beginTransaction()
-                        .show(f3)
-                        .commit();
+                recoveryTint();
+                setTint();
+                setTitle();
             }
         });
+
+        findViewById(R.id.post).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFm.beginTransaction()
+                        .hide(getFragment())
+                        .show(mF2)
+                        .commit();
+                recoveryTint();
+                mPresentF=2;
+                setTint();
+                setTitle();
+            }
+        });
+
+        findViewById(R.id.my_info).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFm.beginTransaction()
+                        .hide(getFragment())
+                        .show(mF3)
+                        .commit();
+                recoveryTint();
+                mPresentF=3;
+                setTint();
+                setTitle();
+            }
+        });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(SAVED_PRESENT_F,mPresentF);
+        super.onSaveInstanceState(outState);
+    }
+
+    private Fragment getFragment(){
+        switch (mPresentF){
+            case 1:
+                return mF1;
+            case 2:
+                return mF2;
+            case 3:
+                return mF3;
+            default:
+                return mF1;
+        }
+    }
+
+    private void recoveryTint(){
+        switch (mPresentF){
+            case 1:
+                mHomeIcon.setBackgroundTintList(null);
+                break;
+            case 2:
+                mPostIcon.setBackgroundTintList(null);
+                break;
+            case 3:
+                mMyInfoIcon.setBackgroundTintList(null);
+                break;
+            default:
+                mHomeIcon.setBackgroundTintList(null);
+        }
+    }
+
+    private void setTint(){
+        final ColorStateList tint=ColorStateList.valueOf(getResources().getColor(R.color.bottom_icon_tint));
+
+        switch (mPresentF){
+            case 1:
+                mHomeIcon.setBackgroundTintList(tint);
+                break;
+            case 2:
+                mPostIcon.setBackgroundTintList(tint);
+                break;
+            case 3:
+                mMyInfoIcon.setBackgroundTintList(tint);
+                break;
+            default:
+                mHomeIcon.setBackgroundTintList(tint);
+        }
+    }
+
+    private void setTitle(){
+        switch (mPresentF){
+            case 1:
+                mTitle.setText("主页");
+                break;
+            case 2:
+                mTitle.setText("帖子");
+                break;
+            case 3:
+                mTitle.setText("我的");
+                break;
+            default:
+                mTitle.setText("主页");
+        }
     }
 }
