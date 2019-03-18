@@ -1,4 +1,4 @@
-package com.csti.datastructureteachingsystem;
+package com.csti.datastructureteachingsystem.module;
 
 import cn.bmob.v3.BmobUser;
 

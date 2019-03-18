@@ -1,4 +1,4 @@
-package com.csti.datastructureteachingsystem;
+package com.csti.datastructureteachingsystem.activity;
 
 import android.content.res.ColorStateList;
 import android.support.v4.app.Fragment;
@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.csti.datastructureteachingsystem.fragment.InfoManagementFragment;
+import com.csti.datastructureteachingsystem.fragment.PostListFragment;
+import com.csti.datastructureteachingsystem.R;
 
 import cn.bmob.v3.Bmob;
 
@@ -153,6 +157,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setTitle(){
+        if(mTitle==null){
+            return;
+        }
         switch (mPresentF){
             case 1:
                 mTitle.setText("主页");

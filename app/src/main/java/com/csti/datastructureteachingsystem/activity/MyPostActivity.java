@@ -1,19 +1,21 @@
-package com.csti.datastructureteachingsystem;
+package com.csti.datastructureteachingsystem.activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MySettingActivity extends AppCompatActivity {
+import com.csti.datastructureteachingsystem.R;
+
+public class MyPostActivity extends AppCompatActivity {
 
     public static Intent newIntent(Context packageContext){
-        return new Intent(packageContext,MySettingActivity.class);
+        return new Intent(packageContext,MyPostActivity.class);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_setting);
+        setContentView(R.layout.activity_my_post);
     }
 }

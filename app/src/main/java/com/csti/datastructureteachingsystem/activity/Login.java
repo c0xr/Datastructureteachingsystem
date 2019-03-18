@@ -1,15 +1,16 @@
-package com.csti.datastructureteachingsystem;
+package com.csti.datastructureteachingsystem.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.csti.datastructureteachingsystem.module.Person;
+import com.csti.datastructureteachingsystem.R;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -60,7 +61,7 @@ public class Login extends AppCompatActivity {
         registered.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Login.this,Registered.class);
+                Intent intent=new Intent(Login.this, Registered.class);
                 startActivity(intent);
             }
         });

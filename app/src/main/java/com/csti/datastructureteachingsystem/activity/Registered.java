@@ -1,9 +1,11 @@
-package com.csti.datastructureteachingsystem;
+package com.csti.datastructureteachingsystem.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.csti.datastructureteachingsystem.R;
 
 public class Registered extends AppCompatActivity {
 
