@@ -50,11 +50,12 @@ public class PostListFragment extends Fragment {
             Post post=mPosts.get(position);
             mTitle.setText(post.getTitle());
             mContent.setText(post.getContent());
+            itemView.setTag(position);
         }
 
         @Override
         public void onClick(View v) {
-            startActivity(PostActivity.newIntent(getActivity()));
+            startActivity(PostActivity.newIntent(getActivity(),mPosts.get((int)v.getTag())));
         }
     }
 
@@ -114,9 +115,9 @@ public class PostListFragment extends Fragment {
                 if(e==null){
                     mPosts=list;
                     updateUI();
-                    print("success");
+                    print("get post list success");
                 }else{
-                    print("fail:"+e);
+                    print("get post lits fail:"+e);
                 }
             }
         });
