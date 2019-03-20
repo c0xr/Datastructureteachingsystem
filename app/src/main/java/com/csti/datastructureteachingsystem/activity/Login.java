@@ -1,4 +1,4 @@
-package com.csti.datastructureteachingsystem;
+package com.csti.datastructureteachingsystem.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.csti.datastructureteachingsystem.R;
+import com.csti.datastructureteachingsystem.module.Person;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;

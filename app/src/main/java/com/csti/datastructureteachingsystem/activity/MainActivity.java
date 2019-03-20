@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.csti.datastructureteachingsystem.fragment.InfoManagementFragment;
 import com.csti.datastructureteachingsystem.fragment.PostListFragment;
 import com.csti.datastructureteachingsystem.R;
+import com.csti.datastructureteachingsystem.module.Person;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
