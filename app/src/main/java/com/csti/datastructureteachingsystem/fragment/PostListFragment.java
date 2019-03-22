@@ -1,6 +1,7 @@
 package com.csti.datastructureteachingsystem.fragment;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,14 +15,20 @@ import com.csti.datastructureteachingsystem.R;
 import com.csti.datastructureteachingsystem.activity.PostActivity;
 import com.csti.datastructureteachingsystem.module.Post;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UploadFileListener;
 
 import static com.csti.datastructureteachingsystem.helper.SystemHelper.print;
+import static com.csti.datastructureteachingsystem.helper.SystemHelper.toast;
 
 public class PostListFragment extends Fragment {
     private RecyclerView mRecyclerView;
@@ -85,6 +92,37 @@ public class PostListFragment extends Fragment {
 
         mPosts=new ArrayList<>();
         getList();
+
+        /*final Post post=new Post("test","aevuilobviueabfrvbewoiubweiujBIUJAERWNILOUAERVBNIJAERBBIJLOUA" +
+                "DEFSVIJULDEFSVIJULEAFBVIULEFRBVIULBAERVUIOVBELRUIBVIUERBILUBF", BmobUser.getCurrentUser(BmobUser.class));
+        String root= Environment.getExternalStorageDirectory().getPath();
+        final BmobFile pic=new BmobFile(new File(root+"/img1.jpg"));
+        pic.upload(new UploadFileListener() {
+            @Override
+            public void done(BmobException e) {
+                if(e==null){
+                    print("file upload success");
+                    List<BmobFile> list=new ArrayList<>();
+                    for(int i=0;i<5;i++){
+                        list.add(pic);
+                    }
+                    post.addAll("mImages",list);
+                    post.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            if(e==null){
+                                print("post success");
+                            }else{
+                                print("post fail:"+e);
+                            }
+                        }
+                    });
+                }else{
+                    print("file upload fail:"+e);
+                }
+            }
+        });*/
+
         if (getArguments() != null) {
         }
     }

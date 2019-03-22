@@ -9,11 +9,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.csti.datastructureteachingsystem.R;
+import com.csti.datastructureteachingsystem.handler.ImageLoader;
 import com.csti.datastructureteachingsystem.module.Post;
 
 import java.io.File;
@@ -41,6 +44,9 @@ public class PostActivity extends AppCompatActivity {
     private TextView mContent;
     private LinearLayout mPostContianer;
     private List<ImageView> mImages;
+    private EditText mReplyContent;
+    private TextView mReplyButton;
+    private LinearLayout mReplyContainer;
 
     public static Intent newIntent(Context packageContext,Post post){
         Intent intent=new Intent(packageContext,PostActivity.class);
@@ -58,51 +64,31 @@ public class PostActivity extends AppCompatActivity {
         mTitle=findViewById(R.id.title);
         mNick=findViewById(R.id.nick);
         mContent=findViewById(R.id.content);
-        mPostContianer=findViewById(R.id.post_contianer);
+        mPostContianer=findViewById(R.id.post_container);
+        mReplyContent=findViewById(R.id.reply_content);
+        mReplyButton=findViewById(R.id.reply_button);
+        mReplyContainer=findViewById(R.id.reply_contianer);
 
         mImages=new ArrayList<>();
-        LayoutInflater inflater=getLayoutInflater();
+        final LayoutInflater inflater=getLayoutInflater();
 
+        int i=3;
         for(BmobFile bmobFile:mPost.getImages()){
-            ImageView imageView=(ImageView) inflater.inflate(R.layout.image_layout,mPostContianer);
+            LinearLayout root=(LinearLayout) inflater.inflate(R.layout.image_layout,mPostContianer);
+            ImageView imageView=(ImageView)root.getChildAt(i++);
             mImages.add(imageView);
+            new ImageLoader(imageView,bmobFile.getUrl()).sendEmptyMessage(0);
         }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
-        }
-
-/*        final Post post=new Post("test","aevuilobviueabfrvbewoiubweiujBIUJAERWNILOUAERVBNIJAERBBIJLOUA" +
-                "DEFSVIJULDEFSVIJULEAFBVIULEFRBVIULBAERVUIOVBELRUIBVIUERBILUBF", BmobUser.getCurrentUser(BmobUser.class));
-        String root= Environment.getExternalStorageDirectory().getPath();
-        final BmobFile pic=new BmobFile(new File(root+"/img1.jpg"));
-        pic.upload(new UploadFileListener() {
-            @Override
-            public void done(BmobException e) {
-                if(e==null){
-                    print("file upload success");
-                    post.add("mImages",pic);
-                    post.add("mImages",pic);
-                    post.add("mImages",pic);
-                    post.save(new SaveListener<String>() {
-                        @Override
-                        public void done(String s, BmobException e) {
-                            if(e==null){
-                                print("post success");
-                                toast("post success",PostActivity.this);
-                            }else{
-                                print("post fail:"+e);
-                            }
-                        }
-                    });
-                }else{
-                    print("file upload fail:"+e);
-                }
-            }
-        });*/
 
         mTitle.setText(mPost.getTitle());
         mContent.setText(mPost.getContent());
+
+        mReplyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout root=(LinearLayout)inflater.inflate(R.layout.reply_layout,mReplyContainer);
+            }
+        });
 
     }
 
