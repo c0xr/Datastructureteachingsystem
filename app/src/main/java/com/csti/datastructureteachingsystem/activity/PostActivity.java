@@ -47,6 +47,7 @@ public class PostActivity extends AppCompatActivity {
     private EditText mReplyContent;
     private TextView mReplyButton;
     private LinearLayout mReplyContainer;
+    private int mReplyCount;
 
     public static Intent newIntent(Context packageContext,Post post){
         Intent intent=new Intent(packageContext,PostActivity.class);
@@ -87,6 +88,8 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LinearLayout root=(LinearLayout)inflater.inflate(R.layout.reply_layout,mReplyContainer);
+                TextView textView=(TextView)root.getChildAt(mReplyCount++);
+                textView.setText(mReplyContent.getText());
             }
         });
 

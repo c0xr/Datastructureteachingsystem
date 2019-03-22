@@ -43,7 +43,6 @@ public class ImageLoader extends Handler {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    print(mBitmap);
                     sendEmptyMessage(1);
                 }
             }.start();
