@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.csti.datastructureteachingsystem.R;
 import com.csti.datastructureteachingsystem.handler.ImageLoader;
 import com.csti.datastructureteachingsystem.module.Post;
+import com.csti.datastructureteachingsystem.module.Reply;
 
 import java.io.File;
 import java.security.Permission;
@@ -90,6 +91,17 @@ public class PostActivity extends AppCompatActivity {
                 LinearLayout root=(LinearLayout)inflater.inflate(R.layout.reply_layout,mReplyContainer);
                 TextView textView=(TextView)root.getChildAt(mReplyCount++);
                 textView.setText(mReplyContent.getText());
+                Reply reply=new Reply(mPost,mReplyContent.getText().toString());
+                reply.save(new SaveListener<String>() {
+                    @Override
+                    public void done(String s, BmobException e) {
+                        if (e == null) {
+                            print("reply success");
+                        }else {
+                            print("reply fail:"+e);
+                        }
+                    }
+                });
             }
         });
 
