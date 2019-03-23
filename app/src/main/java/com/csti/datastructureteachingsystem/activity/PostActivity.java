@@ -1,10 +1,7 @@
 package com.csti.datastructureteachingsystem.activity;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,21 +17,16 @@ import com.csti.datastructureteachingsystem.handler.ImageLoader;
 import com.csti.datastructureteachingsystem.module.Post;
 import com.csti.datastructureteachingsystem.module.Reply;
 
-import java.io.File;
-import java.security.Permission;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UploadFileListener;
 
 import static com.csti.datastructureteachingsystem.helper.SystemHelper.print;
-import static com.csti.datastructureteachingsystem.helper.SystemHelper.toast;
 
 public class PostActivity extends AppCompatActivity {
     private final static String EXTRA_POST="post";
@@ -68,7 +60,7 @@ public class PostActivity extends AppCompatActivity {
         mContent=findViewById(R.id.content);
         mPostContianer=findViewById(R.id.post_container);
         mReplyContent=findViewById(R.id.reply_content);
-        mReplyButton=findViewById(R.id.reply_button);
+        mReplyButton=findViewById(R.id.reply);
         mReplyContainer=findViewById(R.id.reply_contianer);
 
         mImages=new ArrayList<>();

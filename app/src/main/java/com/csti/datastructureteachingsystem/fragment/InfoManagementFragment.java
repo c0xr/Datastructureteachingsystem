@@ -40,8 +40,8 @@ public class InfoManagementFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_info_management, container, false);
-        mMyPost=v.findViewById(R.id.fab);
-        mMyReply=v.findViewById(R.id.reply_button);
+        mMyPost=v.findViewById(R.id.post);
+        mMyReply=v.findViewById(R.id.reply);
         mMySetting=v.findViewById(R.id.setting);
 
         mMyPost.setOnClickListener(new View.OnClickListener() {

@@ -12,13 +12,13 @@
         android:background="@color/background_color" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/post"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:clickable="true"
-        android:src="@drawable/reply"
+        android:src="@drawable/ic_post_commiting"
         app:backgroundTint="@color/post_button_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
