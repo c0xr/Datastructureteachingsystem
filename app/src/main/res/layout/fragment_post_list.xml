@@ -20,6 +20,7 @@
         android:clickable="true"
         android:src="@drawable/ic_post_commiting"
         app:backgroundTint="@color/post_button_color"
+        app:fabCustomSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

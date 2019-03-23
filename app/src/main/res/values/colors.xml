@@ -16,4 +16,6 @@
 
     <color name="bottom_icon_tint">#D81B60</color>
     <color name="post_button_color">#D81B60</color>
+    <color name="transparent">#0000</color>
+    <color name="shallow_gray">#E4E4E4</color>
 </resources>
