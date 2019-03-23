@@ -3,6 +3,7 @@ package com.csti.datastructureteachingsystem.fragment;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.csti.datastructureteachingsystem.R;
 import com.csti.datastructureteachingsystem.activity.PostActivity;
+import com.csti.datastructureteachingsystem.activity.PostCommitingActivity;
 import com.csti.datastructureteachingsystem.module.Post;
 
 import java.io.File;
@@ -34,6 +36,7 @@ public class PostListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private PostAdapter mPostAdapter;
     private List<Post> mPosts;
+    private FloatingActionButton mFab;
 
     public static PostListFragment newInstance() {
         PostListFragment fragment = new PostListFragment();
@@ -131,6 +134,14 @@ public class PostListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_post_list, container, false);
         mRecyclerView=v.findViewById(R.id.recycler_view);
+        mFab=v.findViewById(R.id.fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(PostCommitingActivity.newIntent(getActivity()));
+            }
+        });
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
         return v;

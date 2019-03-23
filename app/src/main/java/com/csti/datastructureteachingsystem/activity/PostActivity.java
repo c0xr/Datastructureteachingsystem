@@ -82,15 +82,28 @@ public class PostActivity extends AppCompatActivity {
             new ImageLoader(imageView,bmobFile.getUrl()).sendEmptyMessage(0);
         }
 
+        BmobQuery<Reply> replyQuery=new BmobQuery<>();
+        BmobQuery<Post> postQuery=new BmobQuery<>();
+        postQuery.addWhereEqualTo("objectId",mPost.getObjectId());
+        replyQuery.addWhereMatchesQuery("mPost","Post",postQuery);
+        replyQuery.findObjects(new FindListener<Reply>() {
+            @Override
+            public void done(List<Reply> list, BmobException e) {
+                if(list!=null){
+                    for(int i=0;i<list.size();i++){
+                        addReplyView(inflater,list.get(i).getContent());
+                    }
+                }
+            }
+        });
+
         mTitle.setText(mPost.getTitle());
         mContent.setText(mPost.getContent());
 
         mReplyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LinearLayout root=(LinearLayout)inflater.inflate(R.layout.reply_layout,mReplyContainer);
-                TextView textView=(TextView)root.getChildAt(mReplyCount++);
-                textView.setText(mReplyContent.getText());
+                addReplyView(inflater,mReplyContent.getText().toString());
                 Reply reply=new Reply(mPost,mReplyContent.getText().toString());
                 reply.save(new SaveListener<String>() {
                     @Override
@@ -111,5 +124,11 @@ public class PostActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
+    }
+
+    public void addReplyView(LayoutInflater inflater,String content){
+        LinearLayout root=(LinearLayout)inflater.inflate(R.layout.reply_layout,mReplyContainer);
+        TextView textView=(TextView)root.getChildAt(mReplyCount++);
+        textView.setText(content);
     }
 }

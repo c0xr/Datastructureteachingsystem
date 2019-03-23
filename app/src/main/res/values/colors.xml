@@ -15,4 +15,5 @@
     <color name="shallow_black">#555555</color>
 
     <color name="bottom_icon_tint">#D81B60</color>
+    <color name="post_button_color">#D81B60</color>
 </resources>

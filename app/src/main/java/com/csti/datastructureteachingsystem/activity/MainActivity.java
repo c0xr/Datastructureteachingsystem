@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.csti.datastructureteachingsystem.fragment.InfoManagementFragment;
@@ -109,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.post).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mFm.beginTransaction()
