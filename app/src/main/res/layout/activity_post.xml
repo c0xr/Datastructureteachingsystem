@@ -110,7 +110,18 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
                 android:background="@color/white"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="回复"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
@@ -159,7 +170,8 @@
             android:layout_marginEnd="16dp"
             android:gravity="center"
             android:text="回复"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/shallow_black" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

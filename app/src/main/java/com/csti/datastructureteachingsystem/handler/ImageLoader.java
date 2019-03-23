@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import java.io.IOException;
@@ -11,8 +13,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-
-import static com.csti.datastructureteachingsystem.helper.SystemHelper.print;
 
 public class ImageLoader extends Handler {
     private ImageView mImageView;
@@ -47,8 +47,27 @@ public class ImageLoader extends Handler {
                 }
             }.start();
         }else {
-            mImageView.setImageBitmap(mBitmap);
+            if(mImageView.getMeasuredWidth()==0) {
+                final ViewTreeObserver vto = mImageView.getViewTreeObserver();
+                vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        vto.removeOnGlobalLayoutListener(this);
+                        adjustViewHeight();
+                    }
+                });
+            }else{
+                adjustViewHeight();
+            }
         }
+    }
+
+    private void adjustViewHeight(){
+        ViewGroup.LayoutParams params=mImageView.getLayoutParams();
+        float ratio = (float) mBitmap.getHeight() / mBitmap.getWidth();
+        params.height = (int) (mImageView.getMeasuredWidth() * ratio);
+        params.width=mImageView.getMeasuredWidth();
+        mImageView.setImageBitmap(mBitmap);
     }
 
 }

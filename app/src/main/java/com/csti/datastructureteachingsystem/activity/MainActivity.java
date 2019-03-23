@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {//延时time秒后，将运行如下代码
                 if(lag){
-                    Load.setVisibility(View.INVISIBLE);
+//                    Load.setVisibility(View.INVISIBLE);
                     SharedPreferences mSharedPreferences=getSharedPreferences("data",MODE_PRIVATE);
                     s_account=mSharedPreferences.getString("account","");
                     s_password=mSharedPreferences.getString("password","");
