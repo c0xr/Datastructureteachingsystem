@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,7 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
+import cn.bmob.v3.util.V;
 
 import static com.csti.datastructureteachingsystem.helper.SystemHelper.print;
 import static com.csti.datastructureteachingsystem.helper.SystemHelper.toast;
@@ -41,6 +43,8 @@ public class PostCommitingActivity extends AppCompatActivity {
     private int mTag;
     private List<String> mPaths=new ArrayList<>();
     private int mI;
+    private ConstraintLayout mLoadInfo;
+    private TextView mPercent;
 
     public static Intent newIntent(Context packageContext){
         return new Intent(packageContext,PostCommitingActivity.class);
@@ -59,6 +63,8 @@ public class PostCommitingActivity extends AppCompatActivity {
         mImageViews.add((ImageView)findViewById(R.id.img_c));
         mImageViews.add((ImageView)findViewById(R.id.img_d));
         mImageViews.add((ImageView)findViewById(R.id.img_e));
+        mLoadInfo=findViewById(R.id.load_info);
+        mPercent=findViewById(R.id.percent);
 
         mCommit.setOnClickListener(new View.OnClickListener() {
             View.OnClickListener onClickListener=this;
@@ -72,6 +78,31 @@ public class PostCommitingActivity extends AppCompatActivity {
                 mCommit.setOnClickListener(null);
                 final Post post=new Post(mTitle.getText().toString(),mContent.getText().toString(),
                         BmobUser.getCurrentUser(Person.class));
+                if(mPaths.size()==0){
+                    post.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            if (e == null) {
+                                print("commit post success");
+                                toast("发帖成功",PostCommitingActivity.this);
+                                setResult(1);
+                                finish();
+                            }else{
+                                print("commit post fail:"+e);
+                                toast("发帖失败,请重试",PostCommitingActivity.this);
+                                mCommit.setOnClickListener(onClickListener);
+                            }
+                        }
+                    });
+                    return;
+                }
+                mLoadInfo.setVisibility(View.VISIBLE);
+                mLoadInfo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
                 final String[] path=new String[mPaths.size()];
                 mPaths.toArray(path);
                 BmobFile.uploadBatch(path, new UploadBatchListener() {
@@ -93,6 +124,8 @@ public class PostCommitingActivity extends AppCompatActivity {
                                     finish();
                                 }else{
                                     print("commit post fail:"+e);
+                                    mLoadInfo.setVisibility(View.INVISIBLE);
+                                    mLoadInfo.setOnClickListener(null);
                                     toast("发帖失败,请重试",PostCommitingActivity.this);
                                     mCommit.setOnClickListener(onClickListener);
                                 }
@@ -102,7 +135,8 @@ public class PostCommitingActivity extends AppCompatActivity {
 
                     @Override
                     public void onProgress(int i, int i1, int i2, int i3) {
-
+                        float counter=(i-1)*100+i1;
+                        mPercent.setText((int)(counter/i2)+"%");
                     }
 
                     @Override
@@ -120,7 +154,6 @@ public class PostCommitingActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    imageView.setOnClickListener(null);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         PostCommitingActivity.this.mTag=this.mTag;
                         requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);

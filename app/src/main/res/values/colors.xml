@@ -14,4 +14,6 @@
     <color name="theme_color">#5882FA</color>
     <color name="bottom_icon_tint">@color/theme_color</color>
     <color name="post_button_color">@color/theme_color</color>
+
+    <color name="half_transparent">#4D000000</color>
 </resources>

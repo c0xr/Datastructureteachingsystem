@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.csti.datastructureteachingsystem.R;
 import com.csti.datastructureteachingsystem.handler.ImageLoader;
+import com.csti.datastructureteachingsystem.module.Person;
 import com.csti.datastructureteachingsystem.module.Post;
 import com.csti.datastructureteachingsystem.module.Reply;
 
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
@@ -137,5 +139,6 @@ public class PostActivity extends AppCompatActivity {
         TextView replyContent=parent.findViewById(R.id.content);
         replyContent.setText(content);
         //TODO create avatar setting
+        ImageView replyAvatar=parent.findViewById(R.id.avatar);
     }
 }

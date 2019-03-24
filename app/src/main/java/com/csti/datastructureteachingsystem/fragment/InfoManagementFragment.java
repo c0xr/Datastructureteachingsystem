@@ -112,7 +112,7 @@ public class InfoManagementFragment extends Fragment {
 //                }
 //            }
 //        });
-        File saveFile = new File(Environment.getExternalStorageDirectory(), user.getMheadphoto().getFilename());
+/*        File saveFile = new File(Environment.getExternalStorageDirectory(), user.getMheadphoto().getFilename());
         user.getMheadphoto().download(saveFile, new DownloadFileListener() {
             @Override
             public void done(String s, BmobException e) {
@@ -123,7 +123,7 @@ public class InfoManagementFragment extends Fragment {
             public void onProgress(Integer integer, long l) {
 
             }
-        });
+        });*/
            // displayImage(headPhoto);
        // }
     }
