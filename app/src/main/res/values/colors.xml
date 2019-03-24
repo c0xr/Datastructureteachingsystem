@@ -14,6 +14,9 @@
     <color name="black">#000000</color>
     <color name="shallow_black">#555555</color>
 
-    <color name="bottom_icon_tint">#D81B60</color>
-    <color name="post_button_color">#D81B60</color>
+    <color name="theme_color">#8181F7</color>
+    <color name="bottom_icon_tint">@color/theme_color</color>
+    <color name="post_button_color">#5882FA</color>
+    <color name="transparent">#0000</color>
+    <color name="shallow_gray">#E4E4E4</color>
 </resources>

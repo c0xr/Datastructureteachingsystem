@@ -1,7 +1,8 @@
 package com.csti.datastructureteachingsystem.fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.csti.datastructureteachingsystem.R;
@@ -17,20 +19,16 @@ import com.csti.datastructureteachingsystem.activity.PostActivity;
 import com.csti.datastructureteachingsystem.activity.PostCommitingActivity;
 import com.csti.datastructureteachingsystem.module.Post;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UploadFileListener;
+import cn.bmob.v3.listener.QueryListener;
 
 import static com.csti.datastructureteachingsystem.helper.SystemHelper.print;
-import static com.csti.datastructureteachingsystem.helper.SystemHelper.toast;
 
 public class PostListFragment extends Fragment {
     private RecyclerView mRecyclerView;
@@ -48,11 +46,15 @@ public class PostListFragment extends Fragment {
     private class PostHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitle;
         private TextView mContent;
+        private TextView mNick;
+        private ImageView mAvatar;
 
         public PostHolder(LayoutInflater inflater,ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_post,parent,false));
             mTitle=itemView.findViewById(R.id.title);
             mContent=itemView.findViewById(R.id.content);
+            mNick=itemView.findViewById(R.id.nick);
+            mAvatar=itemView.findViewById(R.id.avatar);
             itemView.setOnClickListener(this);
         }
 
@@ -60,6 +62,12 @@ public class PostListFragment extends Fragment {
             Post post=mPosts.get(position);
             mTitle.setText(post.getTitle());
             mContent.setText(post.getContent());
+            BmobUser user=mPosts.get(position).getAuthor();
+            mNick.setText(user.getUsername());
+            //TODO update avatar
+            Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.avatar);
+            mAvatar.setImageBitmap(bitmap);
+
             itemView.setTag(position);
         }
 
@@ -134,7 +142,7 @@ public class PostListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_post_list, container, false);
         mRecyclerView=v.findViewById(R.id.recycler_view);
-        mFab=v.findViewById(R.id.fab);
+        mFab=v.findViewById(R.id.post);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,14 +165,25 @@ public class PostListFragment extends Fragment {
     }
 
     private void getList(){
-        BmobQuery<Post> query=new BmobQuery<>();
+        final BmobQuery<Post> query=new BmobQuery<>();
         query.findObjects(new FindListener<Post>() {
             @Override
-            public void done(List<Post> list, BmobException e) {
+            public void done(final List<Post> list, BmobException e) {
                 if(e==null){
                     mPosts=list;
                     updateUI();
                     print("get post list success");
+                    for(int i=0;i<list.size();i++){
+                        BmobQuery<BmobUser> q2=new BmobQuery<>();
+                        final BmobUser user=list.get(i).getAuthor();
+                        q2.getObject(user.getObjectId(), new QueryListener<BmobUser>() {
+                            @Override
+                            public void done(BmobUser bmobUser, BmobException e) {
+                                user.setUsername(bmobUser.getUsername());
+                                updateUI();
+                            }
+                        });
+                    }
                 }else{
                     print("get post lits fail:"+e);
                 }

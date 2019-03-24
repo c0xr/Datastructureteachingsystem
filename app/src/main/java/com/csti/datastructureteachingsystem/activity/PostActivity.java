@@ -1,15 +1,13 @@
 package com.csti.datastructureteachingsystem.activity;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,21 +18,16 @@ import com.csti.datastructureteachingsystem.handler.ImageLoader;
 import com.csti.datastructureteachingsystem.module.Post;
 import com.csti.datastructureteachingsystem.module.Reply;
 
-import java.io.File;
-import java.security.Permission;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UploadFileListener;
 
 import static com.csti.datastructureteachingsystem.helper.SystemHelper.print;
-import static com.csti.datastructureteachingsystem.helper.SystemHelper.toast;
 
 public class PostActivity extends AppCompatActivity {
     private final static String EXTRA_POST="post";
@@ -48,7 +41,7 @@ public class PostActivity extends AppCompatActivity {
     private EditText mReplyContent;
     private TextView mReplyButton;
     private LinearLayout mReplyContainer;
-    private int mReplyCount;
+    private int mReplyCount=1;
 
     public static Intent newIntent(Context packageContext,Post post){
         Intent intent=new Intent(packageContext,PostActivity.class);
@@ -68,7 +61,7 @@ public class PostActivity extends AppCompatActivity {
         mContent=findViewById(R.id.content);
         mPostContianer=findViewById(R.id.post_container);
         mReplyContent=findViewById(R.id.reply_content);
-        mReplyButton=findViewById(R.id.reply_button);
+        mReplyButton=findViewById(R.id.reply);
         mReplyContainer=findViewById(R.id.reply_contianer);
 
         mImages=new ArrayList<>();
@@ -99,22 +92,30 @@ public class PostActivity extends AppCompatActivity {
 
         mTitle.setText(mPost.getTitle());
         mContent.setText(mPost.getContent());
+        String nick=mPost.getAuthor().getUsername();
+        if (nick != null) {
+            mNick.setText(nick);
+        }
+        //TODO create avatar setting
 
         mReplyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addReplyView(inflater,mReplyContent.getText().toString());
-                Reply reply=new Reply(mPost,mReplyContent.getText().toString());
-                reply.save(new SaveListener<String>() {
-                    @Override
-                    public void done(String s, BmobException e) {
-                        if (e == null) {
-                            print("reply success");
-                        }else {
-                            print("reply fail:"+e);
+                if(!mReplyContent.getText().toString().equals("")) {
+                    addReplyView(inflater, mReplyContent.getText().toString());
+                    Reply reply = new Reply(mPost, mReplyContent.getText().toString());
+                    reply.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            if (e == null) {
+                                print("reply success");
+                            } else {
+                                print("reply fail:" + e);
+                            }
                         }
-                    }
-                });
+                    });
+                    mReplyContent.setText("");
+                }
             }
         });
 
@@ -128,7 +129,11 @@ public class PostActivity extends AppCompatActivity {
 
     public void addReplyView(LayoutInflater inflater,String content){
         LinearLayout root=(LinearLayout)inflater.inflate(R.layout.reply_layout,mReplyContainer);
-        TextView textView=(TextView)root.getChildAt(mReplyCount++);
-        textView.setText(content);
+        LinearLayout parent=((LinearLayout)root.getChildAt(mReplyCount++));
+        TextView replyNick=parent.findViewById(R.id.nick);
+        replyNick.setText(mPost.getAuthor().getUsername());
+        TextView replyContent=parent.findViewById(R.id.content);
+        replyContent.setText(content);
+        //TODO create avatar setting
     }
 }
