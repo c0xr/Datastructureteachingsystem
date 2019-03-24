@@ -24,10 +24,10 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends AppCompatActivity {
-    private final static String SAVED_PRESENT_F="present";
-    private final static String TAG_F1="f1";
-    private final static String TAG_F2="f2";
-    private final static String TAG_F3="f3";
+    private final static String SAVED_PRESENT_F = "present";
+    private final static String TAG_F1 = "f1";
+    private final static String TAG_F2 = "f2";
+    private final static String TAG_F3 = "f3";
     private final int time = 2000;
     private boolean lag = true;
     private String s_account;
@@ -50,50 +50,48 @@ public class MainActivity extends AppCompatActivity {
         Bmob.initialize(this, "1e80a4c2a3073b26958660004ae63da5");
         Person person = (Person) getIntent().getSerializableExtra("User");
         setContentView(R.layout.activity_main);
-        mHomeIcon =findViewById(R.id.home_icon);
-        mPostIcon =findViewById(R.id.post_icon);
-        mMyInfoIcon =findViewById(R.id.my_info_icon);
-        mTitle=findViewById(R.id.title);
-        Load=findViewById(R.id.imageView6);
+        mHomeIcon = findViewById(R.id.home_icon);
+        mPostIcon = findViewById(R.id.post_icon);
+        mMyInfoIcon = findViewById(R.id.my_info_icon);
+        mTitle = findViewById(R.id.title);
+        Load = findViewById(R.id.imageView6);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {//延时time秒后，将运行如下代码
-                if(lag){
+                if (lag) {
                     Load.setVisibility(View.INVISIBLE);
-                    SharedPreferences mSharedPreferences=getSharedPreferences("data",MODE_PRIVATE);
-                    s_account=mSharedPreferences.getString("account","");
-                    s_password=mSharedPreferences.getString("password","");
-                    if(!(s_account.equals(""))&&!(s_password.equals(""))){
-                        Login(s_account,s_password);
-                    }else {
+                    SharedPreferences mSharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
+                    s_account = mSharedPreferences.getString("account", "");
+                    s_password = mSharedPreferences.getString("password", "");
+                    if (!(s_account.equals("")) && !(s_password.equals(""))) {
+                        Login(s_account, s_password);
+                    } else {
                         Intent intent = new Intent(MainActivity.this, Login.class);
                         startActivity(intent);
                     }
                 }
             }
-        } , time);
+        }, time);
 
 
-
-
-        if(savedInstanceState!=null){
-            mPresentF=savedInstanceState.getInt(SAVED_PRESENT_F);
+        if (savedInstanceState != null) {
+            mPresentF = savedInstanceState.getInt(SAVED_PRESENT_F);
         }
 
-        mFm =getSupportFragmentManager();
-        mF2=mFm.findFragmentByTag(TAG_F2);
-        mF3=mFm.findFragmentByTag(TAG_F3);
+        mFm = getSupportFragmentManager();
+        mF2 = mFm.findFragmentByTag(TAG_F2);
+        mF3 = mFm.findFragmentByTag(TAG_F3);
 
-        if(mF2==null) {
-            mF1=new Fragment();
+        if (mF2 == null) {
+            mF1 = new Fragment();
             mF2 = PostListFragment.newInstance();
             mF3 = InfoManagementFragment.newInstance();
             mFm.beginTransaction()
-                    .add(R.id.container, mF2,TAG_F2)
-                    .add(R.id.container, mF3,TAG_F3)
+                    .add(R.id.container, mF2, TAG_F2)
+                    .add(R.id.container, mF3, TAG_F3)
                     .hide(mF3)
                     .commit();
-            mPresentF=2;
+            mPresentF = 2;
         }
 
         setTint();
@@ -116,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         .show(mF2)
                         .commit();
                 recoveryTint();
-                mPresentF=2;
+                mPresentF = 2;
                 setTint();
                 setTitle();
             }
@@ -130,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         .show(mF3)
                         .commit();
                 recoveryTint();
-                mPresentF=3;
+                mPresentF = 3;
                 setTint();
                 setTitle();
             }
@@ -139,12 +137,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(SAVED_PRESENT_F,mPresentF);
+        outState.putSerializable(SAVED_PRESENT_F, mPresentF);
         super.onSaveInstanceState(outState);
     }
 
-    private Fragment getFragment(){
-        switch (mPresentF){
+    private Fragment getFragment() {
+        switch (mPresentF) {
             case 1:
                 return mF1;
             case 2:
@@ -156,8 +154,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void recoveryTint(){
-        switch (mPresentF){
+    private void recoveryTint() {
+        switch (mPresentF) {
             case 1:
                 mHomeIcon.setBackgroundTintList(null);
                 break;
@@ -172,10 +170,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setTint(){
-        final ColorStateList tint=ColorStateList.valueOf(getResources().getColor(R.color.bottom_icon_tint));
+    private void setTint() {
+        final ColorStateList tint = ColorStateList.valueOf(getResources().getColor(R.color.bottom_icon_tint));
 
-        switch (mPresentF){
+        switch (mPresentF) {
             case 1:
                 mHomeIcon.setBackgroundTintList(tint);
                 break;
@@ -190,11 +188,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setTitle(){
-        if(mTitle==null){
+    private void setTitle() {
+        if (mTitle == null) {
             return;
         }
-        switch (mPresentF){
+        switch (mPresentF) {
             case 1:
                 mTitle.setText("主页");
                 break;
@@ -209,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public  void Login(String s_account,String s_password) {
+    public void Login(String s_account, String s_password) {
         if (!(s_account.equals("")) && !(s_password.equals(""))) {
             final Person user = new Person();
             //此处替换为你的用户名
@@ -232,6 +230,18 @@ public class MainActivity extends AppCompatActivity {
             });
         } else {
             Toast.makeText(MainActivity.this, "请输入用户名或密码！", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int statusType = intent.getIntExtra("closeType", 0);
+        if (statusType == 1) {
+            //打开登录页
+            Intent intent1 = new Intent(this, Login.class);
+            startActivity(intent1);
+            finish();
         }
     }
 }

@@ -17,6 +17,8 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
+import static com.csti.datastructureteachingsystem.helper.SystemHelper.print;
+
 public class Registered extends AppCompatActivity {
     private EditText register, register_password;
     private TextView push;
@@ -54,6 +56,5 @@ public class Registered extends AppCompatActivity {
                 }
             }
         });
-
     }
 }
