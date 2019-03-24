@@ -67,12 +67,14 @@ public class PostActivity extends AppCompatActivity {
         mImages=new ArrayList<>();
         final LayoutInflater inflater=getLayoutInflater();
 
-        int i=3;
-        for(BmobFile bmobFile:mPost.getImages()){
-            LinearLayout root=(LinearLayout) inflater.inflate(R.layout.image_layout,mPostContianer);
-            ImageView imageView=(ImageView)root.getChildAt(i++);
-            mImages.add(imageView);
-            new ImageLoader(imageView,bmobFile.getUrl()).sendEmptyMessage(0);
+        if(mPost.getImages()!=null) {
+            int i = 3;
+            for (BmobFile bmobFile : mPost.getImages()) {
+                LinearLayout root = (LinearLayout) inflater.inflate(R.layout.image_layout, mPostContianer);
+                ImageView imageView = (ImageView) root.getChildAt(i++);
+                mImages.add(imageView);
+                new ImageLoader(imageView, bmobFile.getUrl()).sendEmptyMessage(0);
+            }
         }
 
         BmobQuery<Reply> replyQuery=new BmobQuery<>();

@@ -1,5 +1,6 @@
 package com.csti.datastructureteachingsystem.fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -103,37 +104,6 @@ public class PostListFragment extends Fragment {
 
         mPosts=new ArrayList<>();
         getList();
-
-        /*final Post post=new Post("test","aevuilobviueabfrvbewoiubweiujBIUJAERWNILOUAERVBNIJAERBBIJLOUA" +
-                "DEFSVIJULDEFSVIJULEAFBVIULEFRBVIULBAERVUIOVBELRUIBVIUERBILUBF", BmobUser.getCurrentUser(BmobUser.class));
-        String root= Environment.getExternalStorageDirectory().getPath();
-        final BmobFile pic=new BmobFile(new File(root+"/img1.jpg"));
-        pic.upload(new UploadFileListener() {
-            @Override
-            public void done(BmobException e) {
-                if(e==null){
-                    print("file upload success");
-                    List<BmobFile> list=new ArrayList<>();
-                    for(int i=0;i<5;i++){
-                        list.add(pic);
-                    }
-                    post.addAll("mImages",list);
-                    post.save(new SaveListener<String>() {
-                        @Override
-                        public void done(String s, BmobException e) {
-                            if(e==null){
-                                print("post success");
-                            }else{
-                                print("post fail:"+e);
-                            }
-                        }
-                    });
-                }else{
-                    print("file upload fail:"+e);
-                }
-            }
-        });*/
-
         if (getArguments() != null) {
         }
     }
@@ -146,13 +116,21 @@ public class PostListFragment extends Fragment {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(PostCommitingActivity.newIntent(getActivity()));
+                startActivityForResult(PostCommitingActivity.newIntent(getActivity()),0);
             }
         });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==1){
+            getList();
+        }
     }
 
     private void updateUI(){
