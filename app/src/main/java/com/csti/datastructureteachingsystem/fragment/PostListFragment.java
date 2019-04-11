@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.csti.datastructureteachingsystem.R;
 import com.csti.datastructureteachingsystem.activity.PostActivity;
 import com.csti.datastructureteachingsystem.activity.PostCommitingActivity;
+import com.csti.datastructureteachingsystem.handler.AvatarLoader;
+import com.csti.datastructureteachingsystem.module.Person;
 import com.csti.datastructureteachingsystem.module.Post;
 
 import java.util.ArrayList;
@@ -63,11 +65,9 @@ public class PostListFragment extends Fragment {
             Post post=mPosts.get(position);
             mTitle.setText(post.getTitle());
             mContent.setText(post.getContent());
-            BmobUser user=mPosts.get(position).getAuthor();
+            Person user=mPosts.get(position).getAuthor();
             mNick.setText(user.getUsername());
-            //TODO update avatar
-            Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.avatar);
-            mAvatar.setImageBitmap(bitmap);
+            new AvatarLoader(mAvatar,user).load();
 
             itemView.setTag(position);
         }
@@ -152,18 +152,18 @@ public class PostListFragment extends Fragment {
                     updateUI();
                     print("get post list success");
                     for(int i=0;i<list.size();i++){
-                        BmobQuery<BmobUser> q2=new BmobQuery<>();
-                        final BmobUser user=list.get(i).getAuthor();
-                        q2.getObject(user.getObjectId(), new QueryListener<BmobUser>() {
+                        BmobQuery<Person> q2=new BmobQuery<>();
+                        final Person user=list.get(i).getAuthor();
+                        q2.getObject(user.getObjectId(), new QueryListener<Person>() {
                             @Override
-                            public void done(BmobUser bmobUser, BmobException e) {
-                                user.setUsername(bmobUser.getUsername());
+                            public void done(Person person, BmobException e) {
+                                user.setUsername(person.getUsername());
                                 updateUI();
                             }
                         });
                     }
                 }else{
-                    print("get post lits fail:"+e);
+                    print("get post lits fail:"+e+" / "+e.getErrorCode());
                 }
             }
         });

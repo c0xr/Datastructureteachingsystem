@@ -3,23 +3,22 @@ package com.csti.datastructureteachingsystem.module;
 import java.util.List;
 
 import cn.bmob.v3.BmobObject;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 
 public class Post extends BmobObject {
     private String mTitle;
     private String mContent;
     private List<BmobFile> mImages;
-    private BmobUser mAuthor;
+    private Person mAuthor;
 
-    public Post(String title, String content, List<BmobFile> images, BmobUser author) {
+    public Post(String title, String content, List<BmobFile> images, Person author) {
         mTitle = title;
         mContent = content;
         mImages = images;
         mAuthor = author;
     }
 
-    public Post(String title, String content, BmobUser author) {
+    public Post(String title, String content, Person author) {
         mTitle = title;
         mContent = content;
         mAuthor = author;
@@ -49,11 +48,11 @@ public class Post extends BmobObject {
         mImages = images;
     }
 
-    public BmobUser getAuthor() {
+    public Person getAuthor() {
         return mAuthor;
     }
 
-    public void setAuthor(BmobUser author) {
+    public void setAuthor(Person author) {
         mAuthor = author;
     }
 }

@@ -5,10 +5,12 @@ import cn.bmob.v3.BmobObject;
 public class Reply extends BmobObject {
     private Post mPost;
     private String mContent;
+    private Person mAuthor;
 
-    public Reply(Post post, String content) {
+    public Reply(Post post, String content, Person author) {
         mPost = post;
         mContent = content;
+        mAuthor = author;
     }
 
     public Post getPost() {
@@ -25,5 +27,13 @@ public class Reply extends BmobObject {
 
     public void setContent(String content) {
         mContent = content;
+    }
+
+    public Person getAuthor() {
+        return mAuthor;
+    }
+
+    public void setAuthor(Person author) {
+        mAuthor = author;
     }
 }

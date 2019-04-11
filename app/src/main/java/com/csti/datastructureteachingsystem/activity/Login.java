@@ -40,6 +40,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Bmob.initialize(this, "1e80a4c2a3073b26958660004ae63da5");
         setContentView(R.layout.activity_login);
+
         mSharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
 
         account = findViewById(R.id.account);

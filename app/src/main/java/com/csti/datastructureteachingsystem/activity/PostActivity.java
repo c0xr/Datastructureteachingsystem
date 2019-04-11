@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.csti.datastructureteachingsystem.R;
+import com.csti.datastructureteachingsystem.handler.AuthorLoader;
+import com.csti.datastructureteachingsystem.handler.AvatarLoader;
 import com.csti.datastructureteachingsystem.handler.ImageLoader;
 import com.csti.datastructureteachingsystem.module.Person;
 import com.csti.datastructureteachingsystem.module.Post;
@@ -44,6 +46,7 @@ public class PostActivity extends AppCompatActivity {
     private TextView mReplyButton;
     private LinearLayout mReplyContainer;
     private int mReplyCount=1;
+    private ImageView mAvatar;
 
     public static Intent newIntent(Context packageContext,Post post){
         Intent intent=new Intent(packageContext,PostActivity.class);
@@ -65,6 +68,7 @@ public class PostActivity extends AppCompatActivity {
         mReplyContent=findViewById(R.id.reply_content);
         mReplyButton=findViewById(R.id.reply);
         mReplyContainer=findViewById(R.id.reply_contianer);
+        mAvatar=findViewById(R.id.avatar);
 
         mImages=new ArrayList<>();
         final LayoutInflater inflater=getLayoutInflater();
@@ -75,7 +79,7 @@ public class PostActivity extends AppCompatActivity {
                 LinearLayout root = (LinearLayout) inflater.inflate(R.layout.image_layout, mPostContianer);
                 ImageView imageView = (ImageView) root.getChildAt(i++);
                 mImages.add(imageView);
-                new ImageLoader(imageView, bmobFile.getUrl()).sendEmptyMessage(0);
+                new ImageLoader(imageView, bmobFile.getUrl()).load();
             }
         }
 
@@ -88,7 +92,7 @@ public class PostActivity extends AppCompatActivity {
             public void done(List<Reply> list, BmobException e) {
                 if(list!=null){
                     for(int i=0;i<list.size();i++){
-                        addReplyView(inflater,list.get(i).getContent());
+                        addReplyView(inflater,list.get(i));
                     }
                 }
             }
@@ -100,14 +104,15 @@ public class PostActivity extends AppCompatActivity {
         if (nick != null) {
             mNick.setText(nick);
         }
-        //TODO create avatar setting
+        new AvatarLoader(mAvatar,mPost.getAuthor()).load();
 
         mReplyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!mReplyContent.getText().toString().equals("")) {
-                    addReplyView(inflater, mReplyContent.getText().toString());
-                    Reply reply = new Reply(mPost, mReplyContent.getText().toString());
+                    Person user=BmobUser.getCurrentUser(Person.class);
+                    Reply reply = new Reply(mPost, mReplyContent.getText().toString(),user);
+                    addReplyView(inflater,reply);
                     reply.save(new SaveListener<String>() {
                         @Override
                         public void done(String s, BmobException e) {
@@ -131,14 +136,19 @@ public class PostActivity extends AppCompatActivity {
 
     }
 
-    public void addReplyView(LayoutInflater inflater,String content){
+    public void addReplyView(LayoutInflater inflater,Reply reply){
         LinearLayout root=(LinearLayout)inflater.inflate(R.layout.reply_layout,mReplyContainer);
         LinearLayout parent=((LinearLayout)root.getChildAt(mReplyCount++));
         TextView replyNick=parent.findViewById(R.id.nick);
-        replyNick.setText(mPost.getAuthor().getUsername());
+        Person author=reply.getAuthor();
+        if(author.getUsername()==null){
+            new AuthorLoader(replyNick,author).load();
+        }else{
+            replyNick.setText(author.getUsername());
+        }
         TextView replyContent=parent.findViewById(R.id.content);
-        replyContent.setText(content);
-        //TODO create avatar setting
+        replyContent.setText(reply.getContent());
         ImageView replyAvatar=parent.findViewById(R.id.avatar);
+        new AvatarLoader(replyAvatar,reply.getAuthor()).load();
     }
 }

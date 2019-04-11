@@ -2,6 +2,7 @@ package com.csti.datastructureteachingsystem.handler;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.view.ViewGroup;
@@ -24,6 +25,14 @@ public class ImageLoader extends Handler {
         mUrl = url;
     }
 
+    public ImageLoader(ImageView imageView) {
+        mImageView = imageView;
+    }
+
+    public void setUrl(String url) {
+        mUrl = url;
+    }
+
     @Override
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
@@ -38,12 +47,14 @@ public class ImageLoader extends Handler {
                         connection.connect();
                         InputStream inputStream=connection.getInputStream();
                         mBitmap= BitmapFactory.decodeStream(inputStream);
+                        sendEmptyMessage(1);
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
+                    } catch (NullPointerException e){
+                        e.printStackTrace();
                     }
-                    sendEmptyMessage(1);
                 }
             }.start();
         }else {
@@ -60,6 +71,10 @@ public class ImageLoader extends Handler {
                 adjustViewHeight();
             }
         }
+    }
+
+    public void load(){
+        sendEmptyMessage(0);
     }
 
     private void adjustViewHeight(){

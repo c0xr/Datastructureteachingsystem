@@ -28,7 +28,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +35,6 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
@@ -236,7 +234,7 @@ public class MySettingActivity extends AppCompatActivity {
                 public void done(BmobException e) {
                     if(e==null){
                         //bmobFile.getFileUrl()--返回的上传文件的完整地址
-                        user.setMheadphoto(bmobFile);
+                        user.setAvatar(bmobFile);
                         user.update(new UpdateListener() {
                             @Override
                             public void done(BmobException e) {

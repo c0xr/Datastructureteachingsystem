@@ -6,13 +6,13 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 
 public class Person extends BmobUser implements Serializable {
-    private BmobFile mheadphoto;//图片bmob文件1
+    private BmobFile mAvatar;//图片bmob文件1
 
-    public void setMheadphoto(BmobFile mheadphoto) {
-        this.mheadphoto = mheadphoto;
+    public void setAvatar(BmobFile avatar) {
+        this.mAvatar = avatar;
     }
 
-    public BmobFile getMheadphoto() {
-        return mheadphoto;
+    public BmobFile getAvatar() {
+        return mAvatar;
     }
 }

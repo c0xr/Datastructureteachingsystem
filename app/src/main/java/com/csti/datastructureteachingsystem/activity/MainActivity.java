@@ -1,8 +1,10 @@
 package com.csti.datastructureteachingsystem.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -54,12 +56,12 @@ public class MainActivity extends AppCompatActivity {
         mPostIcon = findViewById(R.id.post_icon);
         mMyInfoIcon = findViewById(R.id.my_info_icon);
         mTitle = findViewById(R.id.title);
-        Load = findViewById(R.id.imageView6);
+//        Load = findViewById(R.id.imageView6);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {//延时time秒后，将运行如下代码
                 if (lag) {
-                    Load.setVisibility(View.INVISIBLE);
+//                    Load.setVisibility(View.INVISIBLE);
                     SharedPreferences mSharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
                     s_account = mSharedPreferences.getString("account", "");
                     s_password = mSharedPreferences.getString("password", "");
