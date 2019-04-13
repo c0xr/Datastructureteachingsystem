@@ -45,7 +45,7 @@ public class MyReplyActivity extends SingleRecyclerViewActivity<Reply> {
             public void done(final List<Reply> list, BmobException e) {
                 if(e==null){
                     mItems=list;
-                    print("get reply list 2 success");
+                    print("get my reply list success");
                     for(int i=0;i<list.size();i++){
                         final Reply reply=mItems.get(i);
                         BmobQuery<Post> q2=new BmobQuery<>();
@@ -65,7 +65,7 @@ public class MyReplyActivity extends SingleRecyclerViewActivity<Reply> {
                         });
                     }
                 }else{
-                    print("get reply list 2 fail:"+e+" / "+e.getErrorCode());
+                    print("get my reply list fail:"+e+" / "+e.getErrorCode());
                 }
             }
         });

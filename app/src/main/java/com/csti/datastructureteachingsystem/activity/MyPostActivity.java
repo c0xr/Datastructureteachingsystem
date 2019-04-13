@@ -41,20 +41,20 @@ public class MyPostActivity extends SingleRecyclerViewActivity<Post> {
             public void done(final List<Post> list, BmobException e) {
                 if(e==null){
                     mItems=list;
-                    print("get post list 2 success");
+                    print("get my post list success");
                     for(int i=0;i<list.size();i++){
                         BmobQuery<Person> q2=new BmobQuery<>();
                         final Post post=list.get(i);
                         q2.getObject(post.getAuthor().getObjectId(), new QueryListener<Person>() {
                             @Override
                             public void done(Person person, BmobException e) {
-                                post.setAuthor(person);print(post.getAuthor().getUsername());
+                                post.setAuthor(person);
                                 updateUI();
                             }
                         });
                     }
                 }else{
-                    print("get post list 2 fail:"+e+" / "+e.getErrorCode());
+                    print("get my post list fail:"+e+" / "+e.getErrorCode());
                 }
             }
         });
