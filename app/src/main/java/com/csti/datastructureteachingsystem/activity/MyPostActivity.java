@@ -2,18 +2,9 @@ package com.csti.datastructureteachingsystem.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.csti.datastructureteachingsystem.R;
-import com.csti.datastructureteachingsystem.module.Person;
+import com.csti.datastructureteachingsystem.module.User;
 import com.csti.datastructureteachingsystem.module.Post;
 
 import java.util.List;
@@ -34,7 +25,7 @@ public class MyPostActivity extends SingleRecyclerViewActivity<Post> {
     @Override
     protected void getList(){
         final BmobQuery<Post> query=new BmobQuery<>();
-        Person user= BmobUser.getCurrentUser(Person.class);
+        User user= BmobUser.getCurrentUser(User.class);
         query.addWhereEqualTo("mAuthor",user);
         query.findObjects(new FindListener<Post>() {
             @Override
@@ -43,12 +34,12 @@ public class MyPostActivity extends SingleRecyclerViewActivity<Post> {
                     mItems=list;
                     print("get my post list success");
                     for(int i=0;i<list.size();i++){
-                        BmobQuery<Person> q2=new BmobQuery<>();
+                        BmobQuery<User> q2=new BmobQuery<>();
                         final Post post=list.get(i);
-                        q2.getObject(post.getAuthor().getObjectId(), new QueryListener<Person>() {
+                        q2.getObject(post.getAuthor().getObjectId(), new QueryListener<User>() {
                             @Override
-                            public void done(Person person, BmobException e) {
-                                post.setAuthor(person);
+                            public void done(User user, BmobException e) {
+                                post.setAuthor(user);
                                 updateUI();
                             }
                         });

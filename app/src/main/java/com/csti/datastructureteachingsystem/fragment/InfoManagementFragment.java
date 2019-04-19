@@ -14,8 +14,7 @@ import com.csti.datastructureteachingsystem.activity.MyPostActivity;
 import com.csti.datastructureteachingsystem.activity.MyReplyActivity;
 import com.csti.datastructureteachingsystem.activity.MySettingActivity;
 import com.csti.datastructureteachingsystem.handler.AvatarLoader;
-import com.csti.datastructureteachingsystem.handler.ImageLoader;
-import com.csti.datastructureteachingsystem.module.Person;
+import com.csti.datastructureteachingsystem.module.User;
 
 import cn.bmob.v3.BmobUser;
 
@@ -91,7 +90,7 @@ public class InfoManagementFragment extends Fragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if(!hidden){
-            Person user=BmobUser.getCurrentUser(Person.class);
+            User user=BmobUser.getCurrentUser(User.class);
             new AvatarLoader(mAvatar,user).load();
             mNick.setText(user.getUsername());
         }

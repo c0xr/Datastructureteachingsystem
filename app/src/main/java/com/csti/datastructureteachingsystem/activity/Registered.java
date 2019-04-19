@@ -6,18 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.csti.datastructureteachingsystem.R;
-import com.csti.datastructureteachingsystem.module.Person;
+import com.csti.datastructureteachingsystem.module.User;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
-
-import static com.csti.datastructureteachingsystem.helper.SystemHelper.print;
 
 public class Registered extends AppCompatActivity {
     private EditText register, register_password;
@@ -37,12 +34,12 @@ public class Registered extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!(register.getText().toString().equals("")) && !(register_password.getText().toString().equals(""))) {
-                    final Person user = new Person();
+                    final User user = new User();
                     user.setUsername(register.getText().toString());
                     user.setPassword(register_password.getText().toString());
-                    user.signUp(new SaveListener<Person>() {
+                    user.signUp(new SaveListener<User>() {
                         @Override
-                        public void done(Person user, BmobException e) {
+                        public void done(User user, BmobException e) {
                             if (e == null) {
                                 Toast.makeText(Registered.this, "注册成功！", Toast.LENGTH_SHORT).show();
                                 finish();

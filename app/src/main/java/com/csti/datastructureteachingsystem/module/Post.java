@@ -9,16 +9,16 @@ public class Post extends BmobObject {
     private String mTitle;
     private String mContent;
     private List<BmobFile> mImages;
-    private Person mAuthor;
+    private User mAuthor;
 
-    public Post(String title, String content, List<BmobFile> images, Person author) {
+    public Post(String title, String content, List<BmobFile> images, User author) {
         mTitle = title;
         mContent = content;
         mImages = images;
         mAuthor = author;
     }
 
-    public Post(String title, String content, Person author) {
+    public Post(String title, String content, User author) {
         mTitle = title;
         mContent = content;
         mAuthor = author;
@@ -48,11 +48,11 @@ public class Post extends BmobObject {
         mImages = images;
     }
 
-    public Person getAuthor() {
+    public User getAuthor() {
         return mAuthor;
     }
 
-    public void setAuthor(Person author) {
+    public void setAuthor(User author) {
         mAuthor = author;
     }
 }

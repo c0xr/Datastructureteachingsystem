@@ -7,17 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.csti.datastructureteachingsystem.R;
 import com.csti.datastructureteachingsystem.handler.AuthorLoader;
 import com.csti.datastructureteachingsystem.handler.AvatarLoader;
 import com.csti.datastructureteachingsystem.handler.ImageLoader;
-import com.csti.datastructureteachingsystem.module.Person;
+import com.csti.datastructureteachingsystem.module.User;
 import com.csti.datastructureteachingsystem.module.Post;
 import com.csti.datastructureteachingsystem.module.Reply;
 
@@ -47,6 +48,7 @@ public class PostActivity extends AppCompatActivity {
     private LinearLayout mReplyContainer;
     private int mReplyCount=1;
     private ImageView mAvatar;
+    private ScrollView mScrollView;
 
     public static Intent newIntent(Context packageContext,Post post){
         Intent intent=new Intent(packageContext,PostActivity.class);
@@ -69,6 +71,7 @@ public class PostActivity extends AppCompatActivity {
         mReplyButton=findViewById(R.id.reply);
         mReplyContainer=findViewById(R.id.reply_contianer);
         mAvatar=findViewById(R.id.avatar);
+        mScrollView=findViewById(R.id.scroll_view);
 
         mImages=new ArrayList<>();
         final LayoutInflater inflater=getLayoutInflater();
@@ -110,7 +113,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!mReplyContent.getText().toString().equals("")) {
-                    Person user=BmobUser.getCurrentUser(Person.class);
+                    User user=BmobUser.getCurrentUser(User.class);
                     Reply reply = new Reply(mPost, mReplyContent.getText().toString(),user);
                     addReplyView(inflater,reply);
                     reply.save(new SaveListener<String>() {
@@ -138,9 +141,12 @@ public class PostActivity extends AppCompatActivity {
 
     public void addReplyView(LayoutInflater inflater,Reply reply){
         LinearLayout root=(LinearLayout)inflater.inflate(R.layout.reply_layout,mReplyContainer);
+
+        waitForScroll(root);
+
         LinearLayout parent=((LinearLayout)root.getChildAt(mReplyCount++));
         TextView replyNick=parent.findViewById(R.id.nick);
-        Person author=reply.getAuthor();
+        User author=reply.getAuthor();
         if(author.getUsername()==null){
             new AuthorLoader(replyNick,author).load();
         }else{
@@ -150,5 +156,16 @@ public class PostActivity extends AppCompatActivity {
         replyContent.setText(reply.getContent());
         ImageView replyAvatar=parent.findViewById(R.id.avatar);
         new AvatarLoader(replyAvatar,reply.getAuthor()).load();
+    }
+
+    private void waitForScroll(final LinearLayout linearLayout){
+        final ViewTreeObserver vto=linearLayout.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                vto.removeOnGlobalLayoutListener(this);
+                mScrollView.fullScroll(View.FOCUS_DOWN);
+            }
+        });
     }
 }

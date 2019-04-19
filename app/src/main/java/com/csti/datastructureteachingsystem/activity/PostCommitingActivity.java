@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.csti.datastructureteachingsystem.R;
-import com.csti.datastructureteachingsystem.module.Person;
+import com.csti.datastructureteachingsystem.module.User;
 import com.csti.datastructureteachingsystem.module.Post;
 
 import java.util.ArrayList;
@@ -30,7 +30,6 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
-import cn.bmob.v3.util.V;
 
 import static com.csti.datastructureteachingsystem.helper.SystemHelper.print;
 import static com.csti.datastructureteachingsystem.helper.SystemHelper.toast;
@@ -77,7 +76,7 @@ public class PostCommitingActivity extends AppCompatActivity {
                 }
                 mCommit.setOnClickListener(null);
                 final Post post=new Post(mTitle.getText().toString(),mContent.getText().toString(),
-                        BmobUser.getCurrentUser(Person.class));
+                        BmobUser.getCurrentUser(User.class));
                 if(mPaths.size()==0){
                     post.save(new SaveListener<String>() {
                         @Override

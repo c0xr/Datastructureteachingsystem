@@ -1,7 +1,5 @@
 package com.csti.datastructureteachingsystem.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.csti.datastructureteachingsystem.R;
-import com.csti.datastructureteachingsystem.module.Person;
-import com.csti.datastructureteachingsystem.module.Post;
 
 import java.util.List;
 

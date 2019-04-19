@@ -40,7 +40,7 @@ import cn.bmob.v3.listener.UploadFileListener;
 
 import com.csti.datastructureteachingsystem.R;
 import com.csti.datastructureteachingsystem.fragment.ChangePasswordFragment;
-import com.csti.datastructureteachingsystem.module.Person;
+import com.csti.datastructureteachingsystem.module.User;
 
 import java.io.File;
 
@@ -54,7 +54,7 @@ public class MySettingActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     public static final int CHOOSE_PHOTO = 2;
-    Person user = BmobUser.getCurrentUser(Person.class);
+    User user = BmobUser.getCurrentUser(User.class);
     public static Intent newIntent(Context packageContext) {
         return new Intent(packageContext, MySettingActivity.class);
     }
@@ -78,7 +78,7 @@ public class MySettingActivity extends AppCompatActivity {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Person user = BmobUser.getCurrentUser(Person.class);
+                final User user = BmobUser.getCurrentUser(User.class);
                 user.setUsername(username.getText().toString());
                 user.update(new UpdateListener() {
                     @Override

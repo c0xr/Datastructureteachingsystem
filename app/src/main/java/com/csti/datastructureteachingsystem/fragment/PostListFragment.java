@@ -1,8 +1,6 @@
 package com.csti.datastructureteachingsystem.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -18,15 +16,15 @@ import android.widget.TextView;
 import com.csti.datastructureteachingsystem.R;
 import com.csti.datastructureteachingsystem.activity.PostActivity;
 import com.csti.datastructureteachingsystem.activity.PostCommitingActivity;
+import com.csti.datastructureteachingsystem.handler.AuthorLoader;
 import com.csti.datastructureteachingsystem.handler.AvatarLoader;
-import com.csti.datastructureteachingsystem.module.Person;
+import com.csti.datastructureteachingsystem.module.User;
 import com.csti.datastructureteachingsystem.module.Post;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
@@ -65,8 +63,8 @@ public class PostListFragment extends Fragment {
             Post post=mPosts.get(position);
             mTitle.setText(post.getTitle());
             mContent.setText(post.getContent());
-            Person user=mPosts.get(position).getAuthor();
-            mNick.setText(user.getUsername());
+            User user=mPosts.get(position).getAuthor();
+            new AuthorLoader(mNick,user).load();
             new AvatarLoader(mAvatar,user).load();
 
             itemView.setTag(position);
@@ -103,7 +101,6 @@ public class PostListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mPosts=new ArrayList<>();
-        getList();
         if (getArguments() != null) {
         }
     }
@@ -133,6 +130,14 @@ public class PostListFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            getList();
+        }
+    }
+
     private void updateUI(){
         if (mPostAdapter == null) {
             mPostAdapter=new PostAdapter();
@@ -149,21 +154,20 @@ public class PostListFragment extends Fragment {
             public void done(final List<Post> list, BmobException e) {
                 if(e==null){
                     mPosts=list;
-                    updateUI();
                     print("get post list success");
                     for(int i=0;i<list.size();i++){
-                        BmobQuery<Person> q2=new BmobQuery<>();
-                        final Person user=list.get(i).getAuthor();
-                        q2.getObject(user.getObjectId(), new QueryListener<Person>() {
+                        BmobQuery<User> q2=new BmobQuery<>();
+                        final User user=list.get(i).getAuthor();
+                        q2.getObject(user.getObjectId(), new QueryListener<User>() {
                             @Override
-                            public void done(Person person, BmobException e) {
-                                user.setUsername(person.getUsername());
+                            public void done(User user, BmobException e) {
+                                user.setUsername(user.getUsername());
                                 updateUI();
                             }
                         });
                     }
                 }else{
-                    print("get post lits fail:"+e+" / "+e.getErrorCode());
+                    print("get post list fail:"+e+" / "+e.getErrorCode());
                 }
             }
         });

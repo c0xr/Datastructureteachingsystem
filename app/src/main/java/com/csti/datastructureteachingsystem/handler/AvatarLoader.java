@@ -2,27 +2,29 @@ package com.csti.datastructureteachingsystem.handler;
 
 import android.widget.ImageView;
 
-import com.csti.datastructureteachingsystem.module.Person;
+import com.csti.datastructureteachingsystem.module.User;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 
-public class AvatarLoader extends ImageLoader{
-    private Person mUser;
+import static com.csti.datastructureteachingsystem.helper.SystemHelper.print;
 
-    public AvatarLoader(ImageView imageView, Person user) {
+public class AvatarLoader extends ImageLoader{
+    private User mUser;
+
+    public AvatarLoader(ImageView imageView, User user) {
         super(imageView);
         mUser = user;
     }
 
     public void load(){
-        BmobQuery<Person> q=new BmobQuery<>();
-        q.getObject(mUser.getObjectId(), new QueryListener<Person>() {
+        BmobQuery<User> q=new BmobQuery<>();
+        q.getObject(mUser.getObjectId(), new QueryListener<User>() {
             @Override
-            public void done(Person person, BmobException e) {
-                if(person.getAvatar()!=null) {
-                    setUrl(person.getAvatar().getUrl());
+            public void done(User user, BmobException e) {
+                if(user.getAvatar()!=null) {
+                    setUrl(user.getAvatar().getUrl());
                     AvatarLoader.super.load();
                 }
             }

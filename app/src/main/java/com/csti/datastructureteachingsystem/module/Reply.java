@@ -5,9 +5,9 @@ import cn.bmob.v3.BmobObject;
 public class Reply extends BmobObject {
     private Post mPost;
     private String mContent;
-    private Person mAuthor;
+    private User mAuthor;
 
-    public Reply(Post post, String content, Person author) {
+    public Reply(Post post, String content, User author) {
         mPost = post;
         mContent = content;
         mAuthor = author;
@@ -29,11 +29,11 @@ public class Reply extends BmobObject {
         mContent = content;
     }
 
-    public Person getAuthor() {
+    public User getAuthor() {
         return mAuthor;
     }
 
-    public void setAuthor(Person author) {
+    public void setAuthor(User author) {
         mAuthor = author;
     }
 }

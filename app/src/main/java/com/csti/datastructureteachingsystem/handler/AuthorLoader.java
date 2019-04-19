@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
 
-import com.csti.datastructureteachingsystem.module.Person;
+import com.csti.datastructureteachingsystem.module.User;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
@@ -12,9 +12,9 @@ import cn.bmob.v3.listener.QueryListener;
 
 public class AuthorLoader extends Handler {
     private TextView mNick;
-    private Person mUser;
+    private User mUser;
 
-    public AuthorLoader(TextView nick, Person user) {
+    public AuthorLoader(TextView nick, User user) {
         mNick = nick;
         mUser = user;
     }
@@ -30,11 +30,11 @@ public class AuthorLoader extends Handler {
         new Thread(){
             @Override
             public void run() {
-                BmobQuery<Person> q=new BmobQuery<>();
-                q.getObject(mUser.getObjectId(), new QueryListener<Person>() {
+                BmobQuery<User> q=new BmobQuery<>();
+                q.getObject(mUser.getObjectId(), new QueryListener<User>() {
                     @Override
-                    public void done(Person person, BmobException e) {
-                        mUser=person;
+                    public void done(User user, BmobException e) {
+                        mUser= user;
                         AuthorLoader.this.sendEmptyMessage(0);
                     }
                 });
