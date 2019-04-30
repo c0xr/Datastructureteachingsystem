@@ -63,7 +63,7 @@ public class PostActivity extends AppCompatActivity {
 
         mPost=(Post)getIntent().getSerializableExtra(EXTRA_POST);
 
-        mTitle=findViewById(R.id.title);
+        mTitle=findViewById(R.id.item_tilte);
         mNick=findViewById(R.id.nick);
         mContent=findViewById(R.id.content);
         mPostContianer=findViewById(R.id.post_container);

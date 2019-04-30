@@ -55,7 +55,7 @@ public class PostCommitingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_commiting);
 
         mCommit=findViewById(R.id.commit);
-        mTitle=findViewById(R.id.title);
+        mTitle=findViewById(R.id.item_tilte);
         mContent=findViewById(R.id.content);
         mImageViews.add((ImageView)findViewById(R.id.img_a));
         mImageViews.add((ImageView)findViewById(R.id.img_b));

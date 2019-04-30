@@ -29,7 +29,7 @@ public class MyReplyActivity extends SingleRecyclerViewActivity<Reply> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TextView title=findViewById(R.id.title);
+        TextView title=findViewById(R.id.item_tilte);
         title.setText("我的回复");
     }
 

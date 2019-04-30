@@ -52,7 +52,7 @@ public class PostListFragment extends Fragment {
 
         public PostHolder(LayoutInflater inflater,ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_post,parent,false));
-            mTitle=itemView.findViewById(R.id.title);
+            mTitle=itemView.findViewById(R.id.item_tilte);
             mContent=itemView.findViewById(R.id.content);
             mNick=itemView.findViewById(R.id.nick);
             mAvatar=itemView.findViewById(R.id.avatar);

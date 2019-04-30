@@ -9,7 +9,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/item_tilte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="MYPOST_AAA"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title">
+        app:layout_constraintTop_toBottomOf="@+id/item_tilte">
 
         <android.support.v7.widget.CardView
             android:layout_width="25dp"

@@ -47,8 +47,8 @@ import java.io.File;
 import static com.csti.datastructureteachingsystem.helper.SystemHelper.print;
 
 public class MySettingActivity extends AppCompatActivity {
-    private EditText username;
-    private TextView exit;
+    private EditText username,email;
+    private TextView exit,sex;
     private ConstraintLayout changepassword;
     private ImageView headphoto, yes;
     private SharedPreferences sharedPreferences;
@@ -69,6 +69,10 @@ public class MySettingActivity extends AppCompatActivity {
         changepassword = findViewById(R.id.changgepassword);
         headphoto = findViewById(R.id.headphoto);
         yes = findViewById(R.id.yes);
+        email=findViewById(R.id.editText);
+        email.setText(user.getEmail());
+        sex=findViewById(R.id.sex);
+        sex.setText(user.getSex());
         username.setText(user.getUsername());
         sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
         String headPhoto = sharedPreferences.getString("headphoto", "");

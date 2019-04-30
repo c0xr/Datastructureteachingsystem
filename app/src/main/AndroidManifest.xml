@@ -9,10 +9,10 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,14 +20,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".activity.PostCommitingActivity"></activity>
+        <activity android:name=".activity.QuestionItem"></activity>
+        <activity android:name=".activity.KnowledgeItem" />
+        <activity android:name=".activity.QuestionList" />
+        <activity android:name=".activity.KnowledgeList" />
+        <activity android:name=".activity.Admin" />
+        <activity android:name=".activity.Compile" />
+        <activity android:name=".activity.PostCommitingActivity" />
         <activity android:name=".activity.PostActivity" />
         <activity android:name=".activity.MySettingActivity" />
         <activity android:name=".activity.MyReplyActivity" />
         <activity android:name=".activity.MyPostActivity" />
         <activity android:name=".activity.Login" />
         <activity android:name=".activity.Registered" />
-        <activity android:name=".activity.MainActivity" android:launchMode="singleTask">
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

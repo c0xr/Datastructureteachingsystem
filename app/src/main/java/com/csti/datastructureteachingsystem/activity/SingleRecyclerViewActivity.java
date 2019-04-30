@@ -25,7 +25,7 @@ public abstract class SingleRecyclerViewActivity<T> extends AppCompatActivity {
 
         public ItemHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.item_my_post_list,parent,false));
-            mTitle=itemView.findViewById(R.id.title);
+            mTitle=itemView.findViewById(R.id.item_tilte);
         }
 
         public void bind(int position){

@@ -1,31 +1,22 @@
 package com.csti.datastructureteachingsystem.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.csti.datastructureteachingsystem.fragment.HomePageFragment;
 import com.csti.datastructureteachingsystem.fragment.InfoManagementFragment;
 import com.csti.datastructureteachingsystem.fragment.PostListFragment;
 import com.csti.datastructureteachingsystem.R;
-import com.csti.datastructureteachingsystem.module.User;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
-
-import static com.csti.datastructureteachingsystem.helper.SystemHelper.print;
 
 public class MainActivity extends AppCompatActivity {
     private final static String SAVED_PRESENT_F = "present";
@@ -51,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         mHomeIcon = findViewById(R.id.home_icon);
         mPostIcon = findViewById(R.id.post_icon);
         mMyInfoIcon = findViewById(R.id.my_info_icon);
-        mTitle = findViewById(R.id.title);
+        mTitle = findViewById(R.id.item_tilte);
 
         if(!BmobUser.isLogin()){
             startActivity(Login.newIntent(this));

@@ -40,7 +40,12 @@ public class Login extends AppCompatActivity {
         log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mLogin(account.getText().toString(), password.getText().toString());
+                if (account.getText().toString().equals("admin") && password.getText().toString().equals("123")) {
+                    Intent intent = new Intent(Login.this, Admin.class);
+                    startActivity(intent);
+                } else {
+                    mLogin(account.getText().toString(), password.getText().toString());
+                }
             }
         });
         //注册

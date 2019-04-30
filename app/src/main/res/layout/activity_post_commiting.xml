@@ -65,7 +65,7 @@
         app:layout_constraintTop_toBottomOf="@+id/divider6">
 
         <EditText
-            android:id="@+id/title"
+            android:id="@+id/item_tilte"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -84,7 +84,7 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            app:layout_constraintTop_toBottomOf="@+id/item_tilte" />
 
         <EditText
             android:id="@+id/content"
