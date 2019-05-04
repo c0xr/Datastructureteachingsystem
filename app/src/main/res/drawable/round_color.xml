@@ -3,7 +3,9 @@
 
     <gradient
         android:angle="270.0"
-        android:endColor="#00bfff"
-        android:startColor="#00bfff" />
-
+        android:endColor="#00BCD4"
+        android:startColor="#FCFFFF" />
+    <!--圆框角度-->
+    <corners android:radius="50dp"/>
+    <stroke android:width="1px" android:color="#00bfff"/>
 </shape>

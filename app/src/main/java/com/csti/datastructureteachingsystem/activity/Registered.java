@@ -46,6 +46,7 @@ public class Registered extends AppCompatActivity {
 
         register = findViewById(R.id.register);
         register_password = findViewById(R.id.register_password);
+        register_email=findViewById(R.id.editText2);
         push = findViewById(R.id.push);
         push.setOnClickListener(new View.OnClickListener() {
             @Override
