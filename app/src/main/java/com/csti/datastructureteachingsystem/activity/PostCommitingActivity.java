@@ -83,12 +83,12 @@ public class PostCommitingActivity extends AppCompatActivity {
                         public void done(String s, BmobException e) {
                             if (e == null) {
                                 print("commit post success");
-                                toast("发帖成功",PostCommitingActivity.this);
+                                toast("发布成功",PostCommitingActivity.this);
                                 setResult(1);
                                 finish();
                             }else{
                                 print("commit post fail:"+e);
-                                toast("发帖失败,请重试",PostCommitingActivity.this);
+                                toast("发布失败,请重试",PostCommitingActivity.this);
                                 mCommit.setOnClickListener(onClickListener);
                             }
                         }
@@ -119,14 +119,14 @@ public class PostCommitingActivity extends AppCompatActivity {
                             public void done(String s, BmobException e) {
                                 if (e == null) {
                                     print("commit post success");
-                                    toast("发帖成功",PostCommitingActivity.this);
+                                    toast("发布成功",PostCommitingActivity.this);
                                     setResult(1);
                                     finish();
                                 }else{
                                     print("commit post fail:"+e);
                                     mLoadInfo.setVisibility(View.INVISIBLE);
                                     mLoadInfo.setOnClickListener(null);
-                                    toast("发帖失败,请重试",PostCommitingActivity.this);
+                                    toast("发布失败,请重试",PostCommitingActivity.this);
                                     mCommit.setOnClickListener(onClickListener);
                                 }
                             }

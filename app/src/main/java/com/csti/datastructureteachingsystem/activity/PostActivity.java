@@ -103,10 +103,7 @@ public class PostActivity extends AppCompatActivity {
 
         mTitle.setText(mPost.getTitle());
         mContent.setText(mPost.getContent());
-        String nick=mPost.getAuthor().getUsername();
-        if (nick != null) {
-            mNick.setText(nick);
-        }
+        new AuthorLoader(mNick,mPost.getAuthor()).load();
         new AvatarLoader(mAvatar,mPost.getAuthor()).load();
 
         mReplyButton.setOnClickListener(new View.OnClickListener() {

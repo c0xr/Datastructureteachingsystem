@@ -109,7 +109,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="帖子"
+                android:text="博客"
                 android:textAlignment="center"
                 android:textSize="12sp" />
 

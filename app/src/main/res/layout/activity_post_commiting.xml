@@ -35,7 +35,7 @@
             android:paddingTop="8dp"
             android:paddingEnd="16dp"
             android:paddingBottom="8dp"
-            android:text="发帖"
+            android:text="发布"
             android:textColor="@color/theme_color"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

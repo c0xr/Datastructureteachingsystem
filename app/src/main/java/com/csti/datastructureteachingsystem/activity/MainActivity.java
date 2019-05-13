@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                 mTitle.setText("主页");
                 break;
             case 2:
-                mTitle.setText("帖子");
+                mTitle.setText("博客");
                 break;
             case 3:
                 mTitle.setText("我的");
