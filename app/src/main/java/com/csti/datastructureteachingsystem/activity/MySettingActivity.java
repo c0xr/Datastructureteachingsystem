@@ -74,7 +74,7 @@ public class MySettingActivity extends AppCompatActivity {
         sex=findViewById(R.id.sex);
         sex.setText(user.getSex());
         username.setText(user.getUsername());
-        sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);//安卓手机的文件读写
         String headPhoto = sharedPreferences.getString("headphoto", "");
         if (!(headPhoto.equals(""))) {
             displayImage(headPhoto);
@@ -130,6 +130,7 @@ public class MySettingActivity extends AppCompatActivity {
         headphoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //动态申请权限
                 if (ContextCompat.checkSelfPermission(MySettingActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(MySettingActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 } else {
@@ -172,7 +173,7 @@ public class MySettingActivity extends AppCompatActivity {
                 }
         }
     }
-
+//文档【第一行代码】
     private void handleImageOnKitKat(Intent data) {
         String imagePath = null;
         Uri uri = data.getData();
@@ -209,7 +210,7 @@ public class MySettingActivity extends AppCompatActivity {
         }
         displayImage(imagePath);
     }
-
+//文档【第一行代码】
     private void handleImageBeforeKitKat(Intent data) {
         Uri uri = data.getData();
         String imagePath = getImagePath(uri, null);
@@ -256,7 +257,7 @@ public class MySettingActivity extends AppCompatActivity {
             Toast.makeText(this, "得到图片失败", Toast.LENGTH_SHORT).show();
         }
     }
-
+//更改碎片
     private void repleaseFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

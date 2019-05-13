@@ -57,23 +57,23 @@ public class MainActivity extends AppCompatActivity {
         mF1=mFm.findFragmentByTag(TAG_F1);
         mF2 = mFm.findFragmentByTag(TAG_F2);
         mF3 = mFm.findFragmentByTag(TAG_F3);
-
+        //碎片初始化
         if (mF2 == null) {
             mF1 = HomePageFragment.newInstance();
             mF2 = PostListFragment.newInstance();
             mF3 = InfoManagementFragment.newInstance();
             mFm.beginTransaction()
-                    .add(R.id.container,mF1,TAG_F1)
-                    .add(R.id.container, mF2, TAG_F2)
-                    .add(R.id.container, mF3, TAG_F3)
-                    .hide(mF2)
-                    .hide(mF3)
+                    .add(R.id.container,mF1,TAG_F1)//添加碎片1
+                    .add(R.id.container, mF2, TAG_F2)//2
+                    .add(R.id.container, mF3, TAG_F3)//3
+                    .hide(mF2)//隐藏2
+                    .hide(mF3)//3
                     .commit();
             mPresentF = 1;
         }
 
-        setTint();
-        setTitle();
+        setTint();//设置下方图标颜色
+        setTitle();//设置上方标题
 
         findViewById(R.id.home).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         .show(mF1)
                         .commit();
                 recoveryTint();
-                mPresentF=1;
+                mPresentF=1;//当前碎片编号
                 setTint();
                 setTitle();
             }

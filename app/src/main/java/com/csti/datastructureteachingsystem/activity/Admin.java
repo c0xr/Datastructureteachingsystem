@@ -31,6 +31,7 @@ public class Admin extends AppCompatActivity {
         pushknowledge = findViewById(R.id.pushknowledge);
         title = findViewById(R.id.item_tilte);
         title1 = findViewById(R.id.title1);
+
         pushknowledge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

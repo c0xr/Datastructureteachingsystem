@@ -61,7 +61,7 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-        mPost=(Post)getIntent().getSerializableExtra(EXTRA_POST);
+        mPost=(Post)getIntent().getSerializableExtra(EXTRA_POST);//传帖子对象
 
         mTitle=findViewById(R.id.item_tilte);
         mNick=findViewById(R.id.nick);
@@ -73,8 +73,8 @@ public class PostActivity extends AppCompatActivity {
         mAvatar=findViewById(R.id.avatar);
         mScrollView=findViewById(R.id.scroll_view);
 
-        mImages=new ArrayList<>();
-        final LayoutInflater inflater=getLayoutInflater();
+        mImages=new ArrayList<>();//初始化图片
+        final LayoutInflater inflater=getLayoutInflater();//填充图片的填充器
 
         if(mPost.getImages()!=null) {
             int i = 3;
@@ -132,13 +132,7 @@ public class PostActivity extends AppCompatActivity {
         });
 
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-    }
-
+    //在容器添加回复
     public void addReplyView(LayoutInflater inflater,Reply reply){
         LinearLayout root=(LinearLayout)inflater.inflate(R.layout.reply_layout,mReplyContainer);
 
@@ -157,7 +151,7 @@ public class PostActivity extends AppCompatActivity {
         ImageView replyAvatar=parent.findViewById(R.id.avatar);
         new AvatarLoader(replyAvatar,reply.getAuthor()).load();
     }
-
+//滚动函数
     private void waitForScroll(final LinearLayout linearLayout){
         final ViewTreeObserver vto=linearLayout.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

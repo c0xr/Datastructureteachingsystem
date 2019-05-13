@@ -95,6 +95,7 @@ public class PostCommitingActivity extends AppCompatActivity {
                     });
                     return;
                 }
+                //提示上传量
                 mLoadInfo.setVisibility(View.VISIBLE);
                 mLoadInfo.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -8,7 +8,7 @@ import cn.bmob.v3.datatype.BmobFile;
 public class Post extends BmobObject {
     private String mTitle;
     private String mContent;
-    private List<BmobFile> mImages;
+    private List<BmobFile> mImages;//图片链接的数组
     private User mAuthor;
 
     public Post(String title, String content, List<BmobFile> images, User author) {
