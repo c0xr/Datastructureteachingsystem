@@ -34,4 +34,10 @@ public class AvatarLoader extends ImageLoader{
             }
         });
     }
+
+    //Don not adjust
+    @Override
+    protected void prepareSettingBitmap() {
+        mImageView.setImageBitmap(mBitmap);
+    }
 }

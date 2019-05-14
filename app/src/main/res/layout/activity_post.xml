@@ -124,7 +124,8 @@
                             android:id="@+id/avatar"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:background="@drawable/round_shape" />
+                            android:background="@drawable/round_shape"
+                            android:scaleType="centerCrop" />
                     </android.support.v7.widget.CardView>
 
                     <TextView
@@ -189,23 +190,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <EditText
-            android:id="@+id/reply_content"
-            android:layout_width="365dp"
+        <FrameLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_rect"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="回复内容..."
-            android:inputType="text"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:textAlignment="viewStart"
-            android:textSize="14sp" />
+            android:layout_weight="1">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:background="@drawable/round_rect" />
+
+            <EditText
+                android:id="@+id/reply_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="回复内容..."
+                android:inputType="text"
+                android:padding="16dp"
+                android:textAlignment="viewStart"
+                android:textSize="14sp" />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/reply"

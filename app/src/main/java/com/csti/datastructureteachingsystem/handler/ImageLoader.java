@@ -2,7 +2,6 @@ package com.csti.datastructureteachingsystem.handler;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.view.ViewGroup;
@@ -16,9 +15,9 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class ImageLoader extends Handler {
-    private ImageView mImageView;
+    protected ImageView mImageView;
     private String mUrl;
-    private Bitmap mBitmap;
+    protected Bitmap mBitmap;
 
     public ImageLoader(ImageView imageView, String url) {
         mImageView = imageView;
@@ -58,18 +57,7 @@ public class ImageLoader extends Handler {
                 }
             }.start();
         }else {
-            if(mImageView.getMeasuredWidth()==0) {
-                final ViewTreeObserver vto = mImageView.getViewTreeObserver();
-                vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        vto.removeOnGlobalLayoutListener(this);
-                        adjustViewHeight();
-                    }
-                });
-            }else{
-                adjustViewHeight();
-            }
+            prepareSettingBitmap();
         }
     }
 
@@ -77,12 +65,28 @@ public class ImageLoader extends Handler {
         sendEmptyMessage(0);
     }
 
+    protected void prepareSettingBitmap(){
+        if(mImageView.getMeasuredWidth()==0) {
+            final ViewTreeObserver vto = mImageView.getViewTreeObserver();
+            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    vto.removeOnGlobalLayoutListener(this);
+                    adjustViewHeight();
+                    mImageView.setImageBitmap(mBitmap);
+                }
+            });
+        }else{
+            adjustViewHeight();
+            mImageView.setImageBitmap(mBitmap);
+        }
+    }
+
     private void adjustViewHeight(){
         ViewGroup.LayoutParams params=mImageView.getLayoutParams();
         float ratio = (float) mBitmap.getHeight() / mBitmap.getWidth();
         params.height = (int) (mImageView.getMeasuredWidth() * ratio);
         params.width=mImageView.getMeasuredWidth();
-        mImageView.setImageBitmap(mBitmap);
     }
 
 }

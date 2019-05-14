@@ -99,7 +99,7 @@ public class PostActivity extends AppCompatActivity {
             public void done(List<Reply> list, BmobException e) {
                 if(list!=null){
                     for(int i=0;i<list.size();i++){
-                        addReplyView(inflater,list.get(i));
+                        addReplyView(inflater,list.get(i),false);
                     }
                 }
             }
@@ -116,7 +116,7 @@ public class PostActivity extends AppCompatActivity {
                 if(!mReplyContent.getText().toString().equals("")) {
                     User user=BmobUser.getCurrentUser(User.class);
                     Reply reply = new Reply(mPost, mReplyContent.getText().toString(),user);
-                    addReplyView(inflater,reply);
+                    addReplyView(inflater,reply,true);
                     reply.save(new SaveListener<String>() {
                         @Override
                         public void done(String s, BmobException e) {
@@ -158,10 +158,12 @@ public class PostActivity extends AppCompatActivity {
         }
     }
     //在容器添加回复
-    public void addReplyView(LayoutInflater inflater,Reply reply){
+    public void addReplyView(LayoutInflater inflater,Reply reply,boolean isScroll){
         LinearLayout root=(LinearLayout)inflater.inflate(R.layout.reply_layout,mReplyContainer);
 
-        waitForScroll(root);
+        if(isScroll) {
+            waitForScroll(root);
+        }
 
         LinearLayout parent=((LinearLayout)root.getChildAt(mReplyCount++));
         TextView replyNick=parent.findViewById(R.id.nick);
