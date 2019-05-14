@@ -23,9 +23,13 @@ public class AvatarLoader extends ImageLoader{
         q.getObject(mUser.getObjectId(), new QueryListener<User>() {
             @Override
             public void done(User user, BmobException e) {
-                if(user.getAvatar()!=null) {
-                    setUrl(user.getAvatar().getUrl());
-                    AvatarLoader.super.load();
+                if (e==null) {
+                    if(user.getAvatar()!=null) {
+                        setUrl(user.getAvatar().getUrl());
+                        AvatarLoader.super.load();
+                    }
+                } else {
+                    print("get avatar fail:"+e);
                 }
             }
         });

@@ -60,4 +60,10 @@ public class MyPostActivity extends SingleRecyclerViewActivity<Post> {
     protected void onClick(int position) {
         startActivity(PostActivity.newIntent(MyPostActivity.this,mItems.get(position)));
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getList();
+    }
 }

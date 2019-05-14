@@ -10,6 +10,8 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 
+import static com.csti.datastructureteachingsystem.helper.SystemHelper.print;
+
 public class AuthorLoader extends Handler {
     private TextView mNick;
     private User mUser;
@@ -34,8 +36,13 @@ public class AuthorLoader extends Handler {
                 q.getObject(mUser.getObjectId(), new QueryListener<User>() {
                     @Override
                     public void done(User user, BmobException e) {
-                        mUser= user;
-                        AuthorLoader.this.sendEmptyMessage(0);
+                        if(e==null){
+                            mUser= user;
+                            AuthorLoader.this.sendEmptyMessage(0);
+                        }else{
+                            print("set nick fail,userID:"+mUser.getObjectId()+"\tE:"+e);
+                        }
+
                     }
                 });
             }

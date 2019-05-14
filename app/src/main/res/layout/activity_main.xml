@@ -83,6 +83,7 @@
                 android:background="@drawable/home" />
 
             <TextView
+                android:id="@+id/text_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="主页"
@@ -107,6 +108,7 @@
                 android:background="@drawable/post2" />
 
             <TextView
+                android:id="@+id/text_post"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="博客"
@@ -131,7 +133,7 @@
                 android:background="@drawable/my_info" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/text_my_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="我的"

@@ -2,6 +2,7 @@ package com.csti.datastructureteachingsystem.activity;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mPostIcon;
     private ImageView mMyInfoIcon;
     private TextView mTitle;
+    private TextView mTextHome;
+    private TextView mTextPost;
+    private TextView mTextMyInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         mPostIcon = findViewById(R.id.post_icon);
         mMyInfoIcon = findViewById(R.id.my_info_icon);
         mTitle = findViewById(R.id.item_tilte);
+        mTextHome=findViewById(R.id.text_home);
+        mTextPost=findViewById(R.id.text_post);
+        mTextMyInfo=findViewById(R.id.text_my_info);
 
         if(!BmobUser.isLogin()){
             startActivity(Login.newIntent(this));
@@ -74,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         setTint();//设置下方图标颜色
         setTitle();//设置上方标题
+        setTextColor();
 
         findViewById(R.id.home).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,9 +91,11 @@ public class MainActivity extends AppCompatActivity {
                         .show(mF1)
                         .commit();
                 recoveryTint();
+                recoveryTextColor();
                 mPresentF=1;//当前碎片编号
                 setTint();
                 setTitle();
+                setTextColor();
             }
         });
 
@@ -97,9 +107,11 @@ public class MainActivity extends AppCompatActivity {
                         .show(mF2)
                         .commit();
                 recoveryTint();
+                recoveryTextColor();
                 mPresentF = 2;
                 setTint();
                 setTitle();
+                setTextColor();
             }
         });
 
@@ -111,9 +123,11 @@ public class MainActivity extends AppCompatActivity {
                         .show(mF3)
                         .commit();
                 recoveryTint();
+                recoveryTextColor();
                 mPresentF = 3;
                 setTint();
                 setTitle();
+                setTextColor();
             }
         });
     }
@@ -168,6 +182,42 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default:
                 mHomeIcon.setBackgroundTintList(tint);
+        }
+    }
+
+    private void setTextColor() {
+        int color=getResources().getColor(R.color.theme_color);
+
+        switch (mPresentF) {
+            case 1:
+                mTextHome.setTextColor(color);
+                break;
+            case 2:
+                mTextPost.setTextColor(color);
+                break;
+            case 3:
+                mTextMyInfo.setTextColor(color);
+                break;
+            default:
+                mTextHome.setTextColor(color);
+        }
+    }
+
+    private void recoveryTextColor() {
+        int color=getResources().getColor(R.color.text_color);
+
+        switch (mPresentF) {
+            case 1:
+                mTextHome.setTextColor(color);
+                break;
+            case 2:
+                mTextPost.setTextColor(color);
+                break;
+            case 3:
+                mTextMyInfo.setTextColor(color);
+                break;
+            default:
+                mTextHome.setTextColor(color);
         }
     }
 

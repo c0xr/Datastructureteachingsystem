@@ -31,8 +31,10 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 import static com.csti.datastructureteachingsystem.helper.SystemHelper.print;
+import static com.csti.datastructureteachingsystem.helper.SystemHelper.toast;
 
 public class PostActivity extends AppCompatActivity {
     private final static String EXTRA_POST="post";
@@ -49,6 +51,7 @@ public class PostActivity extends AppCompatActivity {
     private int mReplyCount=1;
     private ImageView mAvatar;
     private ScrollView mScrollView;
+    private TextView mDelete;
 
     public static Intent newIntent(Context packageContext,Post post){
         Intent intent=new Intent(packageContext,PostActivity.class);
@@ -72,6 +75,7 @@ public class PostActivity extends AppCompatActivity {
         mReplyContainer=findViewById(R.id.reply_contianer);
         mAvatar=findViewById(R.id.avatar);
         mScrollView=findViewById(R.id.scroll_view);
+        mDelete=findViewById(R.id.delete);
 
         mImages=new ArrayList<>();//初始化图片
         final LayoutInflater inflater=getLayoutInflater();//填充图片的填充器
@@ -128,6 +132,30 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
+
+        if(mPost.getAuthor().getObjectId().equals(BmobUser.getCurrentUser(User.class).getObjectId())) {
+            mDelete.setVisibility(View.VISIBLE);
+            mDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Post post = new Post();
+                    post.setObjectId(mPost.getObjectId());
+                    post.delete(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if (e == null) {
+                                toast("删除成功", PostActivity.this);
+                                finish();
+                            } else {
+                                print(e);
+                                toast("删除失败", PostActivity.this);
+                            }
+
+                        }
+                    });
+                }
+            });
+        }
     }
     //在容器添加回复
     public void addReplyView(LayoutInflater inflater,Reply reply){

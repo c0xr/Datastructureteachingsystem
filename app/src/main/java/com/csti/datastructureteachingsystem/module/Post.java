@@ -11,6 +11,9 @@ public class Post extends BmobObject {
     private List<BmobFile> mImages;//图片链接的数组
     private User mAuthor;
 
+    public Post() {
+    }
+
     public Post(String title, String content, List<BmobFile> images, User author) {
         mTitle = title;
         mContent = content;

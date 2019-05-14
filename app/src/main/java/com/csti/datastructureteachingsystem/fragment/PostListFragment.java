@@ -157,12 +157,16 @@ public class PostListFragment extends Fragment {
                     print("get post list success");
                     for(int i=0;i<list.size();i++){
                         BmobQuery<User> q2=new BmobQuery<>();
-                        final User user=list.get(i).getAuthor();
-                        q2.getObject(user.getObjectId(), new QueryListener<User>() {
+                        final User _user=list.get(i).getAuthor();
+                        q2.getObject(_user.getObjectId(), new QueryListener<User>() {
                             @Override
                             public void done(User user, BmobException e) {
-                                user.setUsername(user.getUsername());
-                                updateUI();
+                                if (e==null) {
+                                    _user.setUsername(user.getUsername());
+                                    updateUI();
+                                } else {
+                                    print("get user fail,userID:"+_user.getObjectId()+"\tE:"+e);
+                                }
                             }
                         });
                     }
@@ -173,4 +177,11 @@ public class PostListFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!isHidden()){
+            getList();
+        }
+    }
 }
