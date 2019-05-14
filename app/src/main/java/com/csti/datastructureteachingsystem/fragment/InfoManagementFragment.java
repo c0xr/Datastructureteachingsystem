@@ -27,6 +27,7 @@ public class InfoManagementFragment extends Fragment {
     private int mDefaultColor;
     private ImageView mAvatar;
     private TextView mNick;
+    private TextView admin;
 
     public static InfoManagementFragment newInstance() {
         InfoManagementFragment fragment = new InfoManagementFragment();
@@ -53,6 +54,8 @@ public class InfoManagementFragment extends Fragment {
         mMySetting=v.findViewById(R.id.setting);
         mAvatar=v.findViewById(R.id.avatar);
         mNick=v.findViewById(R.id.nick);
+        admin=v.findViewById(R.id.admin);
+
 
         mMyPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +96,9 @@ public class InfoManagementFragment extends Fragment {
             User user=BmobUser.getCurrentUser(User.class);
             new AvatarLoader(mAvatar,user).load();
             mNick.setText(user.getUsername());
+            if(mNick.getText().equals("admin")){
+                admin.setVisibility(View.VISIBLE);
+            }
         }
     }
 
