@@ -57,7 +57,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/delete"
+            android:id="@+id/item_delete"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
@@ -65,7 +65,7 @@
             android:paddingEnd="16dp"
             android:paddingBottom="8dp"
             android:text="删除"
-            android:textColor="@color/theme_color"
+            android:textColor="@color/delete_button_color"
             android:textSize="18sp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"

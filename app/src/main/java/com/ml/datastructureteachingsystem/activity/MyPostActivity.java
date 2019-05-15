@@ -52,7 +52,7 @@ public class MyPostActivity extends SingleRecyclerViewActivity<Post> {
     }
 
     @Override
-    protected void bind(TextView title, int position) {
+    protected void bind(TextView title, TextView delete, int position) {
         title.setText(mItems.get(position).getTitle());
     }
 

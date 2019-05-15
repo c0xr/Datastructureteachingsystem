@@ -22,14 +22,16 @@ public abstract class SingleRecyclerViewActivity<T> extends AppCompatActivity {
 //存每个帖子，并显示，可以点击，每个帖子对应一个（内部类）
     protected class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected TextView mTitle;
+        protected TextView mDelete;
 //构造方法
         public ItemHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.item_my_post_list,parent,false));
             mTitle=itemView.findViewById(R.id.item_tilte);
+            mDelete=itemView.findViewById(R.id.item_delete);
         }
 //绑定数据，自动调用
         public void bind(int position){
-            SingleRecyclerViewActivity.this.bind(mTitle,position);
+            SingleRecyclerViewActivity.this.bind(mTitle,mDelete,position);
             itemView.setOnClickListener(this);
             itemView.setTag(position);
         }
@@ -82,7 +84,7 @@ public abstract class SingleRecyclerViewActivity<T> extends AppCompatActivity {
 
     protected abstract void getList();
 
-    protected abstract void bind(TextView title,int position);
+    protected abstract void bind(TextView title,TextView delete,int position);
 
     protected abstract void onClick(int position);
 }

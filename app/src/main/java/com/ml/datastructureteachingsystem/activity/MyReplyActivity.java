@@ -1,8 +1,11 @@
 package com.ml.datastructureteachingsystem.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.View;
 import android.widget.TextView;
 
 import com.ml.datastructureteachingsystem.R;
@@ -17,8 +20,10 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 import static com.ml.datastructureteachingsystem.helper.SystemHelper.print;
+import static com.ml.datastructureteachingsystem.helper.SystemHelper.toast;
 
 public class MyReplyActivity extends SingleRecyclerViewActivity<Reply> {
     public static Intent newIntent(Context packageContext){
@@ -70,8 +75,44 @@ public class MyReplyActivity extends SingleRecyclerViewActivity<Reply> {
     }
 
     @Override
-    protected void bind(TextView title, int position) {
+    protected void bind(TextView title, TextView delete, final int position) {
         title.setText(mItems.get(position).getContent());
+        delete.setVisibility(View.VISIBLE);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(MyReplyActivity.this);
+                builder.setMessage("删除此回复？")
+                        .setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Reply reply=new Reply();
+                                reply.setObjectId(mItems.get(position).getObjectId());
+                                reply.delete(new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if(e==null){
+                                            print("delete reply success");
+                                            toast("删除成功",MyReplyActivity.this);
+                                            mItems.remove(position);
+                                            updateUI();
+                                        }else{
+                                            print("delete reply fail:"+e);
+                                            toast("删除失败",MyReplyActivity.this);
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        });
+                AlertDialog dialog=builder.create();
+                dialog.show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.delete_button_color));
+            }
+        });
     }
 
     @Override
