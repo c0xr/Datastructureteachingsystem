@@ -24,7 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.csti.datastructureteachingsystem.helper.OvalImageView
+    <com.ml.datastructureteachingsystem.helper.OvalImageView
         android:id="@+id/headphoto"
         android:layout_width="100dp"
         android:layout_height="100dp"
