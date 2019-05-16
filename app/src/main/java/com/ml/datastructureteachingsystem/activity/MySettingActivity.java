@@ -40,6 +40,7 @@ import cn.bmob.v3.listener.UploadFileListener;
 
 import com.ml.datastructureteachingsystem.R;
 import com.ml.datastructureteachingsystem.fragment.ChangePasswordFragment;
+import com.ml.datastructureteachingsystem.handler.AvatarLoader;
 import com.ml.datastructureteachingsystem.module.User;
 
 import java.io.File;
@@ -74,11 +75,13 @@ public class MySettingActivity extends AppCompatActivity {
         sex=findViewById(R.id.sex);
         sex.setText(user.getSex());
         username.setText(user.getUsername());
-        sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);//安卓手机的文件读写
-        String headPhoto = sharedPreferences.getString("headphoto", "");
-        if (!(headPhoto.equals(""))) {
-            displayImage(headPhoto);
-        }
+//        sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);//安卓手机的文件读写
+//        String headPhoto = sharedPreferences.getString("headphoto", "");
+//        if (!(headPhoto.equals(""))) {
+//            displayImage(headPhoto);
+//        }
+        User user=BmobUser.getCurrentUser(User.class);
+        new AvatarLoader(headphoto,user).load();
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

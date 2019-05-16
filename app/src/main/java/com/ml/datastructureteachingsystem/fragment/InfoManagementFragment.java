@@ -52,7 +52,7 @@ public class InfoManagementFragment extends Fragment {
         mMyPost=v.findViewById(R.id.post);
         mMyReply=v.findViewById(R.id.reply);
         mMySetting=v.findViewById(R.id.setting);
-        mAvatar=v.findViewById(R.id.avatar);
+        mAvatar=v.findViewById(R.id.headphoto);
         mNick=v.findViewById(R.id.nick);
         admin=v.findViewById(R.id.admin);
 

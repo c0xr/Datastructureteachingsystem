@@ -55,7 +55,7 @@ public class PostListFragment extends Fragment {
             mTitle=itemView.findViewById(R.id.item_tilte);
             mContent=itemView.findViewById(R.id.content);
             mNick=itemView.findViewById(R.id.nick);
-            mAvatar=itemView.findViewById(R.id.avatar);
+            mAvatar=itemView.findViewById(R.id.headphoto);
             itemView.setOnClickListener(this);
         }
 

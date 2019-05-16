@@ -25,7 +25,7 @@
             app:cardElevation="0dp">
 
             <ImageView
-                android:id="@+id/avatar"
+                android:id="@+id/headphoto"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:background="@drawable/round_shape"

@@ -78,7 +78,7 @@ public class PostActivity extends AppCompatActivity {
         mReplyContent=findViewById(R.id.reply_content);
         mReplyButton=findViewById(R.id.reply);
         mReplyContainer=findViewById(R.id.reply_contianer);
-        mAvatar=findViewById(R.id.avatar);
+        mAvatar=findViewById(R.id.headphoto);
         mScrollView=findViewById(R.id.scroll_view);
         mDelete=findViewById(R.id.item_delete);
 
@@ -215,7 +215,7 @@ public class PostActivity extends AppCompatActivity {
         }
         TextView replyContent=parent.findViewById(R.id.content);
         replyContent.setText(reply.getContent());
-        ImageView replyAvatar=parent.findViewById(R.id.avatar);
+        ImageView replyAvatar=parent.findViewById(R.id.headphoto);
         new AvatarLoader(replyAvatar,reply.getAuthor()).load();
     }
 //滚动函数
