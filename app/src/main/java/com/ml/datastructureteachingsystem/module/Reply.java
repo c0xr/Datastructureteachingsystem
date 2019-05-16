@@ -7,6 +7,9 @@ public class Reply extends BmobObject {
     private String mContent;
     private User mAuthor;
 
+    public Reply() {
+    }
+
     public Reply(Post post, String content, User author) {
         mPost = post;
         mContent = content;

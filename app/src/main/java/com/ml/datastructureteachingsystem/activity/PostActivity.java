@@ -1,7 +1,9 @@
 package com.ml.datastructureteachingsystem.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,11 +26,15 @@ import com.ml.datastructureteachingsystem.module.Reply;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobBatch;
+import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BatchResult;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.QueryListListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -74,7 +80,7 @@ public class PostActivity extends AppCompatActivity {
         mReplyContainer=findViewById(R.id.reply_contianer);
         mAvatar=findViewById(R.id.avatar);
         mScrollView=findViewById(R.id.scroll_view);
-        mDelete=findViewById(R.id.delete);
+        mDelete=findViewById(R.id.item_delete);
 
         mImages=new ArrayList<>();//初始化图片
         final LayoutInflater inflater=getLayoutInflater();//填充图片的填充器
@@ -137,21 +143,56 @@ public class PostActivity extends AppCompatActivity {
             mDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Post post = new Post();
-                    post.setObjectId(mPost.getObjectId());
-                    post.delete(new UpdateListener() {
-                        @Override
-                        public void done(BmobException e) {
-                            if (e == null) {
-                                toast("删除成功", PostActivity.this);
-                                finish();
-                            } else {
-                                print(e);
-                                toast("删除失败", PostActivity.this);
-                            }
+                    AlertDialog.Builder builder=new AlertDialog.Builder(PostActivity.this);
+                    builder.setMessage("删除此博客？")
+                            .setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    BmobQuery<Reply> query=new BmobQuery<>();
+                                    final Post post=new Post();
+                                    post.setObjectId(mPost.getObjectId());
+                                    query.addWhereEqualTo("mPost",post);
+                                    query.setLimit(50);
+                                    query.findObjects(new FindListener<Reply>() {
+                                        @Override
+                                        public void done(List<Reply> list, BmobException e) {
+                                            BmobBatch bmobBatch=new BmobBatch();
+                                            List<BmobObject> _list=new ArrayList<>();
+                                            _list.addAll(list);
+                                            bmobBatch.deleteBatch(_list)
+                                                    .doBatch(new QueryListListener<BatchResult>() {
+                                                        @Override
+                                                        public void done(List<BatchResult> list, BmobException e) {
+                                                            if(e==null){
+                                                                print("delete sub replies success");
+                                                                post.delete(new UpdateListener() {
+                                                                    @Override
+                                                                    public void done(BmobException e) {
+                                                                        if (e == null) {
+                                                                            print("delete post success");
+                                                                            toast("删除成功", PostActivity.this);
+                                                                            finish();
+                                                                        } else {
+                                                                            print("delete post fail:"+e);
+                                                                            toast("删除失败", PostActivity.this);
+                                                                        }
 
-                        }
-                    });
+                                                                    }
+                                                                });
+                                                            }
+                                                        }
+                                                    });
+                                        }
+                                    });
+                                }
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                }
+                            });
+                    AlertDialog dialog=builder.create();
+                    dialog.show();
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.delete_button_color));
                 }
             });
         }

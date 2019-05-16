@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/delete"
+            android:id="@+id/item_delete"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"

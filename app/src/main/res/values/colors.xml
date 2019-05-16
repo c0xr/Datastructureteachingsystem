@@ -8,12 +8,14 @@
 
     <color name="background_color">#EDEDED</color>
     <color name="text_color">#767676</color>
-    <color name="avatar_background">#D1D1D1</color>
+    <color name="avatar_background">@color/white</color>
     <color name="press_color">#D1D1D1</color>
 
     <color name="theme_color">#5882FA</color>
+    <color name="theme_color_shallow">#805882FA</color>
     <color name="bottom_icon_tint">@color/theme_color</color>
     <color name="post_button_color">@color/theme_color</color>
+    <color name="delete_button_color">#FF0000</color>
 
     <color name="half_transparent">#4D000000</color>
 </resources>
